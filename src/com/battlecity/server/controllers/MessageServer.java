@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 public class MessageServer implements Runnable {
 
+    public static final int PORT = 3030;
     private static final Logger LOG = Logger.getLogger(MessageServer.class.getName());
     private static final int NUMBER_OF_THREADS = 4;
 
@@ -45,7 +46,7 @@ public class MessageServer implements Runnable {
     @Override
     public void run() {
         try {
-            ServerSocket serverSocket = new ServerSocket(1234);
+            ServerSocket serverSocket = new ServerSocket(PORT);
 
             executor.scheduleAtFixedRate(new AvailabilityTask(), 500, 5, TimeUnit.MILLISECONDS);
 
