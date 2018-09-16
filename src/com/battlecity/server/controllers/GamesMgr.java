@@ -10,6 +10,8 @@ public class GamesMgr {
     private final ConcurrentSkipListSet<Game> games = new ConcurrentSkipListSet<>();
     private final ConcurrentSkipListSet<ClientConnection> waitingConnections = new ConcurrentSkipListSet<>();
 
+    private MessageServer messageServer;
+
     public void addConnection(ClientConnection clientConnection) {
         waitingConnections.add(clientConnection);
         findGame();
@@ -39,7 +41,7 @@ public class GamesMgr {
                     // impossible case
                     continue;
                 }
-                games.add(new Game(clientConnection1, clientConnection2));
+                games.add(new Game(clientConnection1, clientConnection2, messageServer));
             }
         }
     }
@@ -65,4 +67,7 @@ public class GamesMgr {
 
     }
 
+    public void setMessageServer(MessageServer messageServer) {
+        this.messageServer = messageServer;
+    }
 }

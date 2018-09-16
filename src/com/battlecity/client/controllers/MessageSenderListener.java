@@ -1,7 +1,6 @@
 package com.battlecity.client.controllers;
 
 import com.battlecity.communication.MessageRouter;
-import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.messages.Message;
 
 import java.io.IOException;
@@ -34,11 +33,16 @@ public class MessageSenderListener implements Runnable {
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        executorService.scheduleAtFixedRate(this, 500, 5, TimeUnit.MILLISECONDS);
+//        sendMessage(new Message(MessageTypes.TYPE_MOVE));
+//        sendMessage(new Message(MessageTypes.TYPE_MOVE));
+//        sendMessage(new Message(MessageTypes.TYPE_MOVE));
+
+        executorService.scheduleAtFixedRate(this, 500, 50, TimeUnit.MILLISECONDS);
     }
 
     public synchronized void sendMessage(Message message) throws IOException {
-        if (!isReady()) {
+        if (isReady()) {
+            objectOutputStream.reset();
             objectOutputStream.writeObject(message);
             objectOutputStream.flush();
         } else {
@@ -65,20 +69,17 @@ public class MessageSenderListener implements Runnable {
 
     @Override
     public void run() {
-        if (isReady()) {
-            try {
-                if (objectInputStream.available() > 0) {
-                    Object object = objectInputStream.readObject();
+        if (isReady()) try {
+            if (socket.getInputStream().available() > 0) {
+                Object object = objectInputStream.readObject();
 
-                    if (object instanceof Message){
-                        Message message = (Message) object;
-
-                        messageRouter.processMessage(message);
-                    }
+                if (object instanceof Message) {
+                    Message message = (Message) object;
+                    messageRouter.processMessage(message);
                 }
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
             }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

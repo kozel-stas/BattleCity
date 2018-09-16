@@ -1,13 +1,19 @@
 package com.battlecity.server.model;
 
 
+import com.battlecity.communication.MessageTypes;
+import com.battlecity.communication.messages.Message;
 import com.battlecity.models.*;
 import com.battlecity.models.Iterable;
 import com.battlecity.models.blocks.Tank;
+import com.battlecity.server.controllers.MessageServer;
 import com.battlecity.utils.IDGeneratorUtil;
 import com.battlecity.utils.MapGeneratorUtil;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,13 +35,17 @@ public class Game implements Runnable, Comparable {
 
     private final Lock lock = new ReentrantLock();
 
-    public Game(ClientConnection clientConnection1, ClientConnection clientConnection2) {
+    private final MessageServer messageServer;
+
+    public Game(ClientConnection clientConnection1, ClientConnection clientConnection2, MessageServer messageServer) {
         System.out.println("new Game");
         this.id = IDGeneratorUtil.generate();
         this.clients = new TreeMap<>();
         this.clients.put(clientConnection1.getId(), clientConnection1);
         this.clients.put(clientConnection2.getId(), clientConnection2);
         this.gameMap = MapGeneratorUtil.generateMap();
+        this.messageServer = messageServer;
+        sendMapToClients();
         tryToRespawnTank();
     }
 
@@ -145,6 +155,21 @@ public class Game implements Runnable, Comparable {
                 //publish new event
                 return tank;
             });
+        }
+    }
+
+    private void sendMapToClients() {
+        try {
+            Message message = new Message(MessageTypes.TYPE_MAP);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+            objectOutputStream.writeObject(gameMap);
+            objectOutputStream.flush();
+            message.setProperty(MessageTypes.KEY_GAME_MAP, byteArrayOutputStream.toByteArray());
+
+            messageServer.sendMessageToAllConnection(message, clients.values());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

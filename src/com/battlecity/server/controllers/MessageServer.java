@@ -9,6 +9,7 @@ import com.battlecity.utils.BytesUtils;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.*;
 import java.util.logging.Level;
@@ -32,14 +33,19 @@ public class MessageServer implements Runnable {
         this.gamesMgr = gamesMgr;
     }
 
-    public void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {
+    public synchronized void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {
+        clientConnection.getObjectOutputStream().reset();
         clientConnection.getObjectOutputStream().writeObject(message);
         clientConnection.getObjectOutputStream().flush();
+//        clientConnection.getObjectOutputStream().close();
+//        clientConnection.getObjectOutputStream()
+
     }
 
-    public void sendMessageToAllConnection(Message message, ClientConnection[] clientConnections) throws IOException {
+    public void sendMessageToAllConnection(Message message, Collection<ClientConnection> clientConnections) throws IOException {
         for (ClientConnection clientConnection : clientConnections) {
             sendMessageToConnection(message, clientConnection);
+            System.out.println("Send message to connection, " + clientConnection);
         }
     }
 
@@ -116,15 +122,18 @@ public class MessageServer implements Runnable {
                     }
                     sendMessageToConnection(new Message(MessageTypes.TYPE_AVAILABILITY), clientConnection);
                 } catch (IOException e) {
+                    e.printStackTrace();
                     iterator.remove();
                     gamesMgr.removeConnection(clientConnection);
                     continue;
                 }
                 try {
                     if (clientConnection.getSocket().getInputStream().available() > 0) {
+                        System.out.println("aaaaa");
                         new ReadTask(clientConnection).run();
                     }
                 } catch (IOException e) {
+                    e.printStackTrace();
                     LOG.log(Level.WARNING, "Exception was thrown", e);
                 }
             }

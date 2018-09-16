@@ -3,6 +3,7 @@ package com.battlecity.models;
 import com.battlecity.utils.CollusionUtils;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
@@ -24,7 +25,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * |
  * \/
  */
-public class GameMap {
+public class GameMap implements Serializable {
 
     private final MapSize mapSize;
 
