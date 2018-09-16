@@ -61,7 +61,7 @@ public class GamesMgr {
 
     public interface SynchronizeAction {
 
-        public void execute(Game game);
+        void execute(Game game);
 
     }
 

@@ -1,6 +1,8 @@
 package com.battlecity.server;
 
 import com.battlecity.communication.MessageRouter;
+import com.battlecity.communication.handlers.MoveMessageHandler;
+import com.battlecity.communication.handlers.ShootMessageHandler;
 import com.battlecity.models.Area;
 import com.battlecity.models.GameMap;
 import com.battlecity.models.MapSize;
@@ -12,16 +14,18 @@ public class ServerApplication {
 
     private MessageRouter messageRouter;
     private GamesMgr gamesMgr;
-    private MessageServer socketServer;
+    private MessageServer messageServer;
 
     public ServerApplication() {
         messageRouter = new MessageRouter();
         gamesMgr = new GamesMgr();
-        socketServer = new MessageServer(messageRouter, gamesMgr);
+        messageRouter.addMessageHandler(new MoveMessageHandler(gamesMgr, messageServer));
+        messageRouter.addMessageHandler(new ShootMessageHandler(gamesMgr, messageServer));
+        messageServer = new MessageServer(messageRouter, gamesMgr);
     }
 
     public void startApp() {
-        socketServer.run();
+        messageServer.run();
     }
 
     public static void main(String[] args) {

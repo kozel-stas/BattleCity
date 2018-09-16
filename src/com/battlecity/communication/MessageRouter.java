@@ -3,15 +3,17 @@ package com.battlecity.communication;
 import com.battlecity.communication.exceptions.MissingParamException;
 import com.battlecity.communication.handlers.MessageHandler;
 import com.battlecity.communication.messages.Message;
+import com.battlecity.utils.BytesUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MessageRouter {
 
     private static final Logger LOG = Logger.getLogger(MessageRouter.class.getName());
-    private final ConcurrentHashMap<byte[], MessageHandler> handlerMap = new ConcurrentHashMap();
+    private final ConcurrentSkipListMap<byte[], MessageHandler> handlerMap = new ConcurrentSkipListMap<>(BytesUtils.BYTES_COMPARATOR);
 
     public void processMessage(Message message) {
         byte[] messageType = message.getMessageType();
@@ -30,7 +32,7 @@ public class MessageRouter {
         }
     }
 
-    public void addMessageHandler(MessageHandler messageHandler){
+    public void addMessageHandler(MessageHandler messageHandler) {
         handlerMap.put(messageHandler.getType(), messageHandler);
     }
 

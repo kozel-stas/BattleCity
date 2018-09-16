@@ -30,6 +30,8 @@ public class MoveMessageHandler implements MessageHandler {
 
     @Override
     public void processMessage(Message message) throws MissingParamException {
+        System.out.println("MoveMessageHandler: Start process message " + message);
+
         long clientId = BytesUtils.byteArrayToLong(message.getRequiredProperty(MessageTypes.KEY_CONNECTION_ID));
         Disposition disposition = Disposition.valueOf(BytesUtils.byteArrayToString(message.getRequiredProperty(MessageTypes.KEY_DISPOSITION)));
         gamesMgr.executeSynchronized(clientId, (game) -> {

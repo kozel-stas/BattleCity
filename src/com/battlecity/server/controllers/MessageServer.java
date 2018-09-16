@@ -31,23 +31,14 @@ public class MessageServer implements Runnable {
         this.gamesMgr = gamesMgr;
     }
 
-    public void sendMessageToConnection(Message message, ClientConnection clientConnection) {
-        try {
-            clientConnection.getObjectOutputStream().writeObject(message);
-            clientConnection.getObjectOutputStream().flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {
+        clientConnection.getObjectOutputStream().writeObject(message);
+        clientConnection.getObjectOutputStream().flush();
     }
 
-    public void sendMessageToAllConnection(Message message, ClientConnection[] clientConnections) {
+    public void sendMessageToAllConnection(Message message, ClientConnection[] clientConnections) throws IOException {
         for (ClientConnection clientConnection : clientConnections) {
-            try {
-                clientConnection.getObjectOutputStream().writeObject(message);
-                clientConnection.getObjectOutputStream().flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendMessageToConnection(message, clientConnection);
         }
     }
 
@@ -62,6 +53,8 @@ public class MessageServer implements Runnable {
                 Socket socket = serverSocket.accept();
 
                 ClientConnection clientConnection = new ClientConnection(socket);
+
+                System.out.println("New conection " + clientConnection.getId());
 
                 connections.add(clientConnection);
                 gamesMgr.addConnection(clientConnection);
@@ -93,17 +86,15 @@ public class MessageServer implements Runnable {
             try {
                 Object object = clientConnection.getObjectInputStream().readObject();
 
+                System.out.println("ReadTask");
                 if (object instanceof Message) {
+                    System.out.println("New message");
                     Message message = (Message) object;
                     message.setProperty(MessageTypes.KEY_CONNECTION_ID, BytesUtils.toByteArray(clientConnection.getId()));
 
                     messageRouter.processMessage(message);
                 }
-            } catch (IOException e) {
-                LOG.log(Level.WARNING, "Exception was thrown", e);
-                connections.remove(clientConnection);
-                gamesMgr.removeConnection(clientConnection);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 LOG.log(Level.WARNING, "Exception was thrown", e);
             }
         }
@@ -116,23 +107,28 @@ public class MessageServer implements Runnable {
             Iterator<ClientConnection> iterator = connections.iterator();
             while (iterator.hasNext()) {
                 ClientConnection clientConnection = iterator.next();
-                if (clientConnection.getSocket().isClosed()) {
+                try {
+                    if (clientConnection.getSocket().isClosed()) {
+                        iterator.remove();
+                        gamesMgr.removeConnection(clientConnection);
+                        continue;
+                    }
+                    sendMessageToConnection(new Message(MessageTypes.TYPE_AVAILABILITY), clientConnection);
+                } catch (IOException e) {
                     iterator.remove();
                     gamesMgr.removeConnection(clientConnection);
                     continue;
                 }
                 try {
                     if (clientConnection.getSocket().getInputStream().available() > 0) {
-                        executor.execute(new ReadTask(clientConnection));
+                        new ReadTask(clientConnection).run();
                     }
                 } catch (IOException e) {
                     LOG.log(Level.WARNING, "Exception was thrown", e);
-                    iterator.remove();
-                    gamesMgr.removeConnection(clientConnection);
-                    continue;
                 }
             }
         }
+
     }
 
 }

@@ -6,13 +6,15 @@ import com.battlecity.models.Iterable;
 import com.battlecity.models.blocks.Tank;
 import com.battlecity.utils.IDGeneratorUtil;
 import com.battlecity.utils.MapGeneratorUtil;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Game implements Runnable {
+public class Game implements Runnable, Comparable {
 
     private long id;
 
@@ -21,12 +23,14 @@ public class Game implements Runnable {
     private boolean completed = false;
 
     private Map<Long, ClientConnection> clients;
+
     // clientId -> Tank
-    private Map<Long, Tank> tanks;
+    private Map<Long, Tank> tanks = new HashMap<>();
 
     private final Lock lock = new ReentrantLock();
 
     public Game(ClientConnection clientConnection1, ClientConnection clientConnection2) {
+        System.out.println("new Game");
         this.id = IDGeneratorUtil.generate();
         this.clients = new TreeMap<>();
         this.clients.put(clientConnection1.getId(), clientConnection1);
@@ -144,4 +148,8 @@ public class Game implements Runnable {
         }
     }
 
+    @Override
+    public int compareTo(@NotNull Object o) {
+        return (int) Long.compare(id, ((Game) o).id);
+    }
 }

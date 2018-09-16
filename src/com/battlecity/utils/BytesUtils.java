@@ -1,8 +1,11 @@
 package com.battlecity.utils;
 
 import java.nio.charset.Charset;
+import java.util.Comparator;
 
 public class BytesUtils {
+
+    public static final BytesComparator BYTES_COMPARATOR = new BytesComparator();
 
     public static String byteArrayToString(byte[] data) {
         if (data != null) {
@@ -68,4 +71,19 @@ public class BytesUtils {
         return null;
     }
 
+    private static class BytesComparator implements Comparator<byte[]> {
+
+        @Override
+        public int compare(byte[] left, byte[] right) {
+            for (int i = 0, j = 0; i < left.length && j < right.length; i++, j++) {
+                int a = (left[i] & 0xff);
+                int b = (right[j] & 0xff);
+                if (a != b) {
+                    return a - b;
+                }
+            }
+            return left.length - right.length;
+        }
+
+    }
 }
