@@ -2,7 +2,9 @@ package com.battlecity.models;
 
 import com.battlecity.utils.IDGeneratorUtil;
 
-public class PhysicalObject {
+import java.io.Serializable;
+
+public class PhysicalObject implements Serializable {
 
     private long id;
     private Area area;

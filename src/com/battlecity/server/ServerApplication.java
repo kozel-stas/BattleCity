@@ -6,6 +6,9 @@ import com.battlecity.communication.handlers.ShootMessageHandler;
 import com.battlecity.server.controllers.GamesMgr;
 import com.battlecity.server.controllers.MessageServer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ServerApplication {
 
     private MessageRouter messageRouter;
@@ -26,6 +29,15 @@ public class ServerApplication {
     }
 
     public static void main(String[] args) {
+
+        Map<Long, String> a =new HashMap<>();
+
+
+        a.computeIfAbsent(1L, id ->{
+            return "cerf";
+        });
+
+        System.out.println(a.values());
 
         new ServerApplication().startApp();
 

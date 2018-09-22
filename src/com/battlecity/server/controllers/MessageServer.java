@@ -34,12 +34,8 @@ public class MessageServer implements Runnable {
     }
 
     public synchronized void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {
-        clientConnection.getObjectOutputStream().reset();
         clientConnection.getObjectOutputStream().writeObject(message);
-        clientConnection.getObjectOutputStream().flush();
-//        clientConnection.getObjectOutputStream().close();
-//        clientConnection.getObjectOutputStream()
-
+        clientConnection.getObjectOutputStream().reset();
     }
 
     public void sendMessageToAllConnection(Message message, Collection<ClientConnection> clientConnections) throws IOException {
@@ -54,7 +50,8 @@ public class MessageServer implements Runnable {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
 
-            executor.scheduleAtFixedRate(new AvailabilityTask(), 500, 5, TimeUnit.MILLISECONDS);
+            executor.scheduleAtFixedRate(new AvailabilityTask(), 500, 5000, TimeUnit.MILLISECONDS);
+            executor.scheduleAtFixedRate(new ReadTask(), 500, 50, TimeUnit.MICROSECONDS);
 
             while (isRunning()) {
                 Socket socket = serverSocket.accept();
@@ -82,27 +79,30 @@ public class MessageServer implements Runnable {
 
     private class ReadTask implements Runnable {
 
-        private final ClientConnection clientConnection;
-
-        ReadTask(ClientConnection clientConnection) {
-            this.clientConnection = clientConnection;
-        }
-
         @Override
-        public void run() {
-            try {
-                Object object = clientConnection.getObjectInputStream().readObject();
+        public synchronized void run() {
+            for (ClientConnection clientConnection : connections) {
+                try {
+                    if (clientConnection.getSocket().getInputStream().available() <= 0) {
+                        continue;
+                    }
 
-                System.out.println("ReadTask");
-                if (object instanceof Message) {
-                    System.out.println("New message");
-                    Message message = (Message) object;
-                    message.setProperty(MessageTypes.KEY_CONNECTION_ID, BytesUtils.toByteArray(clientConnection.getId()));
+                    Object object = clientConnection.getObjectInputStream().readObject();
 
-                    messageRouter.processMessage(message);
+                    System.out.println("ReadTask");
+                    if (object instanceof Message) {
+                        System.out.println("New message");
+                        Message message = (Message) object;
+                        message.setProperty(MessageTypes.KEY_CONNECTION_ID, BytesUtils.toByteArray(clientConnection.getId()));
+
+                        executor.execute(() -> {
+                            messageRouter.processMessage(message);
+                        });
+                    }
+
+                } catch (IOException | ClassNotFoundException e) {
+                    LOG.log(Level.WARNING, "Exception was thrown", e);
                 }
-            } catch (IOException | ClassNotFoundException e) {
-                LOG.log(Level.WARNING, "Exception was thrown", e);
             }
         }
     }
@@ -126,15 +126,6 @@ public class MessageServer implements Runnable {
                     iterator.remove();
                     gamesMgr.removeConnection(clientConnection);
                     continue;
-                }
-                try {
-                    if (clientConnection.getSocket().getInputStream().available() > 0) {
-                        System.out.println("aaaaa");
-                        new ReadTask(clientConnection).run();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    LOG.log(Level.WARNING, "Exception was thrown", e);
                 }
             }
         }

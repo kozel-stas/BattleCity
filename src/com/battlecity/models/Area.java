@@ -1,11 +1,13 @@
 package com.battlecity.models;
 
+import java.io.Serializable;
+
 /**
  * x,y---|
  * |     |
  * |---x1,y1
  */
-public class Area {
+public class Area implements Serializable {
 
     private int coordinateX;
     private int coordinateY;

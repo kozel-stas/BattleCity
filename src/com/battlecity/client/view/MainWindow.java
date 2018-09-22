@@ -1,6 +1,6 @@
 package com.battlecity.client.view;
 
-import com.battlecity.client.ClientApplication;
+import com.battlecity.client.controllers.ClientApplication;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.*;
@@ -13,8 +13,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class MainWindow {
-
-    private ClientApplication clientApplication;
 
     private Display display;
     private Shell shell;
@@ -30,8 +28,7 @@ public class MainWindow {
 
     private int currentPosition = 1;
 
-    public MainWindow(ClientApplication clientApplication) {
-        this.clientApplication = clientApplication;
+    public MainWindow() {
         display = new Display();
         shell = new Shell(display, SWT.TITLE | SWT.CLOSE | SWT.DOUBLE_BUFFERED);
         color = new Color(null, 19, 0, 26);
@@ -168,7 +165,7 @@ public class MainWindow {
 
     private void chooseEvent() {
         if (currentPosition % 2 == 0) {
-            new GameWindow(display, shell, clientApplication);
+            new GameWindow(display, shell);
             canvas.dispose();
         } else {
             shell.close();

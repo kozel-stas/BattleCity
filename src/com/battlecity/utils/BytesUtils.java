@@ -1,5 +1,6 @@
 package com.battlecity.utils;
 
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Comparator;
 
@@ -23,23 +24,23 @@ public class BytesUtils {
 
     public static byte[] toByteArray(long data) {
         return new byte[]{
-                (byte) ((data >> 56) & 0xff),
-                (byte) ((data >> 48) & 0xff),
-                (byte) ((data >> 40) & 0xff),
-                (byte) ((data >> 32) & 0xff),
-                (byte) ((data >> 24) & 0xff),
-                (byte) ((data >> 16) & 0xff),
-                (byte) ((data >> 8) & 0xff),
                 (byte) ((data >> 0) & 0xff),
+                (byte) ((data >> 8) & 0xff),
+                (byte) ((data >> 16) & 0xff),
+                (byte) ((data >> 24) & 0xff),
+                (byte) ((data >> 32) & 0xff),
+                (byte) ((data >> 40) & 0xff),
+                (byte) ((data >> 48) & 0xff),
+                (byte) ((data >> 56) & 0xff),
         };
     }
 
     public static byte[] toByteArray(int data) {
         return new byte[]{
-                (byte) (data >> 24),
-                (byte) (data >> 16),
-                (byte) (data >> 8),
-                (byte) (data >> 0),
+                (byte) (data >>> 0),
+                (byte) (data >>> 8),
+                (byte) (data >>> 16),
+                (byte) (data >>> 24),
         };
     }
 
@@ -50,10 +51,10 @@ public class BytesUtils {
             value += (long) (data[6] & 0x000000FF) << 48;
             value += (long) (data[5] & 0x000000FF) << 40;
             value += (long) (data[4] & 0x000000FF) << 32;
-            value += (data[3] & 0x000000FF) << 24;
-            value += (data[2] & 0x000000FF) << 16;
-            value += (data[1] & 0x000000FF) << 8;
-            value += (data[0] & 0x000000FF);
+            value += (long) (data[3] & 0x000000FF) << 24;
+            value += (long) (data[2] & 0x000000FF) << 16;
+            value += (long) (data[1] & 0x000000FF) << 8;
+            value += (long) (data[0] & 0x000000FF);
             return value;
         }
         return null;
@@ -62,16 +63,16 @@ public class BytesUtils {
     public static Integer byteArrayToInteger(byte[] data) {
         if (data != null) {
             int value = 0;
-            value += (data[3] & 0x000000FF) << 24;
-            value += (data[2] & 0x000000FF) << 16;
-            value += (data[1] & 0x000000FF) << 8;
-            value += (data[0] & 0x000000FF);
+            value += (data[3] & 0xFF) << 24;
+            value += (data[2] & 0xFF) << 16;
+            value += (data[1] & 0xFF) << 8;
+            value += (data[0] & 0xFF);
             return value;
         }
         return null;
     }
 
-    private static class BytesComparator implements Comparator<byte[]> {
+    private static class BytesComparator implements Comparator<byte[]>, Serializable {
 
         @Override
         public int compare(byte[] left, byte[] right) {

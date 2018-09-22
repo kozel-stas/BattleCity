@@ -1,10 +1,15 @@
 package com.battlecity.models.blocks;
 
 import com.battlecity.models.*;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Canvas;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Tank extends PhysicalObject implements Movable, Destroyable {
+public class Tank extends PhysicalObject implements Movable, Destroyable, Drawable {
 
     private final AtomicInteger lives;
     private Disposition disposition;
@@ -15,7 +20,7 @@ public class Tank extends PhysicalObject implements Movable, Destroyable {
         super(coordinateX, coordinateY, mapSize.getTankArea().getHeight(), mapSize.getTankArea().getWidth());
         lives = new AtomicInteger(1);
         disposition = Disposition.TOP; // default value
-        speed = 2; //default value
+        speed = 1; //default value
         this.mapSize = mapSize;
     }
 
@@ -54,4 +59,33 @@ public class Tank extends PhysicalObject implements Movable, Destroyable {
     public Disposition getDisposition() {
         return disposition;
     }
+
+    @Override
+    public PaintListener draw(Canvas canvas) {
+        PaintListener paintListener = new PaintListener() {
+            @Override
+            public void paintControl(PaintEvent paintEvent) {
+                paintEvent.gc.setForeground(new Color(null,255,255,255));
+                Rectangle rectangle = canvas.getBounds();
+                float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
+                float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
+                paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
+                        (int) (proportionsY * getCoordinateY()),
+                        (int) (proportionsX * getArea().getWidth()),
+                        (int) (proportionsY * getArea().getHeight()));
+                paintEvent.gc.dispose();
+            }
+        };
+        canvas.addPaintListener(paintListener);
+        return paintListener;
+    }
+
+    @Override
+    public void updateDataForDrawing(Drawable drawable) {
+        Tank tank = (Tank) drawable;
+        this.disposition = tank.disposition;
+        setCoordinateX(tank.getCoordinateX());
+        setCoordinateY(tank.getCoordinateY());
+    }
+
 }

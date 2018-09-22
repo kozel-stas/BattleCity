@@ -45,7 +45,6 @@ public class Game implements Runnable, Comparable {
         this.clients.put(clientConnection2.getId(), clientConnection2);
         this.gameMap = MapGeneratorUtil.generateMap();
         this.messageServer = messageServer;
-        sendMapToClients();
         tryToRespawnTank();
     }
 
@@ -129,8 +128,8 @@ public class Game implements Runnable, Comparable {
         return tanks.get(clientId);
     }
 
-    public PhysicalObject getPhysicalObject(Area area) {
-        return gameMap.getPhysicalObject(area);
+    public PhysicalObject getPhysicalObject(Area area, long id) {
+        return gameMap.getPhysicalObject(area, id);
     }
 
     public GameMap getGameMap() {
@@ -151,14 +150,14 @@ public class Game implements Runnable, Comparable {
         for (ClientConnection clientConnection : clients.values()) {
             tanks.computeIfAbsent(clientConnection.getId(), (id) -> {
                 Tank tank = new Tank(50, 50, gameMap.getMapSize());
-                gameMap.addPhysicalObjectToMap(tank);
-                //publish new event
+                System.out.println(gameMap.addPhysicalObjectToMap(tank));
                 return tank;
             });
         }
+        sendMapToClients();
     }
 
-    private void sendMapToClients() {
+    public void sendMapToClients() {
         try {
             Message message = new Message(MessageTypes.TYPE_MAP);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

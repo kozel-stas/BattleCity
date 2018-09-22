@@ -33,11 +33,7 @@ public class MessageSenderListener implements Runnable {
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-//        sendMessage(new Message(MessageTypes.TYPE_MOVE));
-//        sendMessage(new Message(MessageTypes.TYPE_MOVE));
-//        sendMessage(new Message(MessageTypes.TYPE_MOVE));
-
-        executorService.scheduleAtFixedRate(this, 500, 50, TimeUnit.MILLISECONDS);
+        executorService.scheduleAtFixedRate(this, 500, 500, TimeUnit.MICROSECONDS);
     }
 
     public synchronized void sendMessage(Message message) throws IOException {
@@ -56,15 +52,17 @@ public class MessageSenderListener implements Runnable {
     }
 
     public void shutdown() {
+        executorService.shutdown();
         try {
-            socket.close();
+            if (isReady()) {
+                socket.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         this.socket = null;
         this.objectInputStream = null;
         this.objectOutputStream = null;
-        executorService.shutdown();
     }
 
     @Override
@@ -74,6 +72,7 @@ public class MessageSenderListener implements Runnable {
                 Object object = objectInputStream.readObject();
 
                 if (object instanceof Message) {
+                    System.out.println("Start");
                     Message message = (Message) object;
                     messageRouter.processMessage(message);
                 }

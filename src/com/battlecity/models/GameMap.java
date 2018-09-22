@@ -39,7 +39,7 @@ public class GameMap implements Serializable {
     }
 
     public boolean addPhysicalObjectToMap(PhysicalObject physicalObject) {
-        if (getPhysicalObject(physicalObject.getId()) == null && CollusionUtils.checkCollusion(this, physicalObject.getArea())) {
+        if (getPhysicalObject(physicalObject.getId()) == null && getPhysicalObject(physicalObject) == null && !CollusionUtils.checkCollusion(this, physicalObject.getArea())) {
             physicalObjects.put(physicalObject.getId(), physicalObject);
             generifyPhysicalObjects(physicalObject);
             return true;
@@ -56,6 +56,16 @@ public class GameMap implements Serializable {
     public PhysicalObject getPhysicalObject(Area area) {
         for (PhysicalObject physicalObject : physicalObjects.values()) {
             if (CollusionUtils.checkCollusion(physicalObject, area)) {
+                return physicalObject;
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public PhysicalObject getPhysicalObject(Area area, long id) {
+        for (PhysicalObject physicalObject : physicalObjects.values()) {
+            if (CollusionUtils.checkCollusion(physicalObject, area) && physicalObject.getId() != id) {
                 return physicalObject;
             }
         }
@@ -103,6 +113,10 @@ public class GameMap implements Serializable {
 
     public ConcurrentSkipListMap<Long, Iterable> getIterableObjects() {
         return iterableObjects;
+    }
+
+    public ConcurrentSkipListMap<Long, PhysicalObject> getPhysicalObjects() {
+        return physicalObjects;
     }
 
     public MapSize getMapSize() {

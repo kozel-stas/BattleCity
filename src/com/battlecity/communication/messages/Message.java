@@ -1,11 +1,13 @@
 package com.battlecity.communication.messages;
 
 import com.battlecity.communication.exceptions.MissingParamException;
+import com.battlecity.utils.BytesUtils;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Message implements Serializable {
 
@@ -15,7 +17,7 @@ public class Message implements Serializable {
 
     public Message(byte[] messageType) {
         this.messageType = messageType;
-        paramsMap = new HashMap<>();
+        paramsMap = new TreeMap<>(BytesUtils.BYTES_COMPARATOR);
     }
 
     public byte[] getMessageType() {
