@@ -50,7 +50,7 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         if (this.disposition != disposition) {
             return getArea();
         }
-        return this.disposition.getAreaAfterOffset(getArea(), step);
+        return this.disposition.getAreaAfterOffset(getArea(), speed * step);
     }
 
     public Bullet doShoot() {
@@ -89,7 +89,4 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         setCoordinateY(tank.getCoordinateY());
     }
 
-    public int getSpeed() {
-        return speed;
-    }
 }

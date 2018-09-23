@@ -38,10 +38,6 @@ public class GamesMgr {
             while (waitingConnections.size() > 1) {
                 ClientConnection clientConnection1 = waitingConnections.pollFirst();
                 ClientConnection clientConnection2 = waitingConnections.pollFirst();
-                if (clientConnection1 == null || clientConnection2 == null) {
-                    // impossible case
-                    continue;
-                }
                 Game game = new Game(clientConnection1, clientConnection2, messageServer);
                 executorService.scheduleAtFixedRate(game, 1, 1, TimeUnit.SECONDS);
                 games.add(game);

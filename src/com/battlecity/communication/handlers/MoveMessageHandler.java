@@ -39,16 +39,12 @@ public class MoveMessageHandler implements MessageHandler {
             System.out.println("Game " + game);
             Tank tank = game.getTank(clientId);
             if (tank != null) {
-                for (int i = 0; i < tank.getSpeed(); i++) {
-                    System.out.println("Tank " + tank);
-                    Area areaAfterMove = tank.getAreaAfterMove(disposition);
-                    PhysicalObject physicalObject = game.getPhysicalObject(areaAfterMove, tank.getId());
-                    if (physicalObject == null && !CollusionUtils.checkCollusion(game.getGameMap(), areaAfterMove)) {
-                        tank.move(disposition);
-                        game.sendMapToClients();
-                    } else {
-                        return;
-                    }
+                System.out.println("Tank " + tank);
+                Area areaAfterMove = tank.getAreaAfterMove(disposition);
+                PhysicalObject physicalObject = game.getGameMap().getPhysicalObject(areaAfterMove, tank.getId());
+                if (physicalObject == null && !CollusionUtils.checkCollusion(game.getGameMap(), areaAfterMove)) {
+                    tank.move(disposition);
+                    game.sendMapToClients();
                 }
             } else {
                 // new live, spawn new tank

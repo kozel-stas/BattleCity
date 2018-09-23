@@ -3,6 +3,7 @@ package com.battlecity.communication.handlers;
 import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.exceptions.MissingParamException;
 import com.battlecity.communication.messages.Message;
+import com.battlecity.models.PhysicalObject;
 import com.battlecity.models.blocks.Bullet;
 import com.battlecity.models.blocks.Tank;
 import com.battlecity.server.controllers.GamesMgr;
@@ -31,7 +32,10 @@ public class ShootMessageHandler implements MessageHandler {
             Tank tank = game.getTank(clientId);
             if (tank != null) {
                 Bullet bullet = tank.doShoot();
-                System.out.println(game.getGameMap().addPhysicalObjectToMap(bullet));
+                if(!game.getGameMap().addPhysicalObjectToMap(bullet)){
+                    PhysicalObject physicalObject = game.getGameMap().getPhysicalObject(bullet);
+                    game.processConflictPhysicalObject(physicalObject);
+                }
                 game.sendMapToClients();
             } else {
                 // new live, spawn new tank

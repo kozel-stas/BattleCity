@@ -5,8 +5,10 @@ import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.messages.Message;
 import com.battlecity.models.*;
 import com.battlecity.models.Iterable;
+import com.battlecity.models.blocks.Fortress;
 import com.battlecity.models.blocks.Tank;
 import com.battlecity.server.controllers.MessageServer;
+import com.battlecity.utils.CollusionUtils;
 import com.battlecity.utils.IDGeneratorUtil;
 import com.battlecity.utils.MapGeneratorUtil;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.locks.Lock;
@@ -30,9 +31,6 @@ public class Game implements Runnable, Comparable {
 
     private Map<Long, ClientConnection> clients;
 
-    // clientId -> Tank
-    private Map<Long, Tank> tanks = new HashMap<>();
-
     private final Lock lock = new ReentrantLock();
 
     private final MessageServer messageServer;
@@ -43,13 +41,19 @@ public class Game implements Runnable, Comparable {
         this.clients = new TreeMap<>();
         this.clients.put(clientConnection1.getId(), clientConnection1);
         this.clients.put(clientConnection2.getId(), clientConnection2);
-        this.gameMap = MapGeneratorUtil.generateMap();
+        this.gameMap = MapGeneratorUtil.generateMap(clientConnection1.getId(), clientConnection2.getId());
         this.messageServer = messageServer;
         tryToRespawnTank();
     }
 
-    public void finish() {
+    private void finish() {
         completed = true;
+        Message message = new Message(MessageTypes.TYPE_FINISH);
+        try {
+            messageServer.sendMessageToAllConnection(message, clients.values());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -59,21 +63,12 @@ public class Game implements Runnable, Comparable {
             for (Iterable iterable : gameMap.getIterableObjects().values()) {
                 PhysicalObject physicalObject = gameMap.getPhysicalObject(iterable.getId());
                 PhysicalObject physicalObjectConflict = gameMap.getPhysicalObject(iterable.getAreaAfterIterate(), iterable.getId());
-                if (physicalObjectConflict == null) {
+                boolean collusionWithMap = CollusionUtils.checkCollusion(gameMap, iterable.getAreaAfterIterate());
+                if (physicalObjectConflict == null && !collusionWithMap) {
                     iterable.doIterate();
                     continue;
                 }
-                if (physicalObjectConflict instanceof Destroyable) {
-                    if (((Destroyable) physicalObjectConflict).destroyObject()) {
-                        gameMap.removePhysicalObject(physicalObjectConflict.getId());
-                    }
-                    if (physicalObjectConflict instanceof Tank) {
-                        Tank tank = (Tank) physicalObjectConflict;
-                        if (removeTank(tank)) {
-                            tryToRespawnTank();
-                        }
-                    }
-                }
+                processConflictPhysicalObject(physicalObjectConflict);
                 if (physicalObject instanceof Destroyable) {
                     if (((Destroyable) physicalObject).destroyObject()) {
                         gameMap.removePhysicalObject(physicalObject.getId());
@@ -86,6 +81,25 @@ public class Game implements Runnable, Comparable {
             }
             sendMapToClients();
             lock.unlock();
+        }
+    }
+
+
+    public void processConflictPhysicalObject(PhysicalObject physicalObjectConflict) {
+        if (physicalObjectConflict instanceof Destroyable) {
+            if (((Destroyable) physicalObjectConflict).destroyObject()) {
+                gameMap.removePhysicalObject(physicalObjectConflict.getId());
+                if (physicalObjectConflict instanceof Tank) {
+                    Tank tank = (Tank) physicalObjectConflict;
+                    if (gameMap.removeTank(tank) != null) {
+                        tryToRespawnTank();
+                    }
+                }
+                if (physicalObjectConflict instanceof Fortress) {
+                    Fortress fortress = (Fortress) physicalObjectConflict;
+                    finish();
+                }
+            }
         }
     }
 
@@ -110,7 +124,6 @@ public class Game implements Runnable, Comparable {
     public boolean removeClientConnection(ClientConnection clientConnection) {
         if (containsClient(clientConnection)) {
             clients.remove(clientConnection.getId());
-            finish();
             return true;
         }
         return false;
@@ -129,35 +142,19 @@ public class Game implements Runnable, Comparable {
     }
 
     public Tank getTank(long clientId) {
-        return tanks.get(clientId);
-    }
-
-    public PhysicalObject getPhysicalObject(Area area, long id) {
-        return gameMap.getPhysicalObject(area, id);
+        return gameMap.getTank(clientId);
     }
 
     public GameMap getGameMap() {
         return gameMap;
     }
 
-    public boolean removeTank(Tank tank) {
-        for (Map.Entry<Long, Tank> entry : tanks.entrySet()) {
-            if (tank.equals(entry.getValue())) {
-                tanks.remove(entry.getKey());
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public synchronized void tryToRespawnTank() {
+    public void tryToRespawnTank() {
+        lock.lock();
         for (ClientConnection clientConnection : clients.values()) {
-            tanks.computeIfAbsent(clientConnection.getId(), (id) -> {
-                Tank tank = new Tank(50, 50, gameMap.getMapSize());
-                System.out.println(gameMap.addPhysicalObjectToMap(tank));
-                return tank;
-            });
+            gameMap.spawnTankForClient(clientConnection.getId());
         }
+        lock.unlock();
         sendMapToClients();
     }
 
@@ -178,6 +175,7 @@ public class Game implements Runnable, Comparable {
 
     @Override
     public int compareTo(@NotNull Object o) {
-        return (int) Long.compare(id, ((Game) o).id);
+        return Long.compare(id, ((Game) o).id);
     }
+
 }

@@ -33,7 +33,7 @@ public class MessageSenderListener implements Runnable {
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        executorService.scheduleAtFixedRate(this, 500, 500, TimeUnit.MICROSECONDS);
+        executorService.scheduleAtFixedRate(this, 500, 50, TimeUnit.MICROSECONDS);
     }
 
     public synchronized void sendMessage(Message message) throws IOException {

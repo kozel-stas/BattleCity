@@ -30,7 +30,7 @@ public class GameWindow {
         this.shell = shell;
         color = new Color(null, 19, 0, 26);
         this.shell.setText("BattleCity");
-        this.shell.setSize(1020, 1000);
+        this.shell.setSize(1020, 1050);
         this.shell.setBackground(color);
         this.shell.setFocus();
         this.shell.setModified(false);
@@ -141,6 +141,15 @@ public class GameWindow {
             });
             canvas.redraw();
         });
+    }
+
+    public Shell getShell() {
+        return shell;
+    }
+
+    public void disposeWindow() {
+        canvas.dispose();
+        clientApplication.getMessageSender().shutdown();
     }
 
 }
