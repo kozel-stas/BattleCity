@@ -14,13 +14,15 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
     private final AtomicInteger lives;
     private Disposition disposition;
     private final int speed;
+    private final int step;
     private MapSize mapSize;
 
     public Tank(int coordinateX, int coordinateY, MapSize mapSize) {
         super(coordinateX, coordinateY, mapSize.getTankArea().getHeight(), mapSize.getTankArea().getWidth());
         lives = new AtomicInteger(1);
         disposition = Disposition.TOP; // default value
-        speed = 1; //default value
+        step = 1; //default value > 0
+        speed = 10;
         this.mapSize = mapSize;
     }
 
@@ -48,12 +50,12 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         if (this.disposition != disposition) {
             return getArea();
         }
-        return this.disposition.getAreaAfterOffset(getArea(), speed);
+        return this.disposition.getAreaAfterOffset(getArea(), step);
     }
 
     public Bullet doShoot() {
         Area area = this.disposition.getAreaForBullet(getArea(), mapSize);
-        return new Bullet(area.getCoordinateX(), area.getCoordinateY(), area.getHeight(), area.getWidth(), this.disposition, this);
+        return new Bullet(area.getCoordinateX(), area.getCoordinateY(), mapSize, this.disposition, this);
     }
 
     public Disposition getDisposition() {
@@ -65,15 +67,14 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         PaintListener paintListener = new PaintListener() {
             @Override
             public void paintControl(PaintEvent paintEvent) {
-                paintEvent.gc.setForeground(new Color(null,255,255,255));
                 Rectangle rectangle = canvas.getBounds();
+                paintEvent.gc.setForeground(new Color(null, 255, 255, 255));
                 float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
                 float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
                 paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
                         (int) (proportionsY * getCoordinateY()),
                         (int) (proportionsX * getArea().getWidth()),
                         (int) (proportionsY * getArea().getHeight()));
-                paintEvent.gc.dispose();
             }
         };
         canvas.addPaintListener(paintListener);
@@ -88,4 +89,7 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         setCoordinateY(tank.getCoordinateY());
     }
 
+    public int getSpeed() {
+        return speed;
+    }
 }

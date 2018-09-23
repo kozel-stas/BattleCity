@@ -55,9 +55,10 @@ public class Game implements Runnable, Comparable {
     @Override
     public void run() {
         if (!completed) {
+            lock.lock();
             for (Iterable iterable : gameMap.getIterableObjects().values()) {
                 PhysicalObject physicalObject = gameMap.getPhysicalObject(iterable.getId());
-                PhysicalObject physicalObjectConflict = gameMap.getPhysicalObject(iterable.getAreaAfterIterate());
+                PhysicalObject physicalObjectConflict = gameMap.getPhysicalObject(iterable.getAreaAfterIterate(), iterable.getId());
                 if (physicalObjectConflict == null) {
                     iterable.doIterate();
                     continue;
@@ -74,8 +75,8 @@ public class Game implements Runnable, Comparable {
                     }
                 }
                 if (physicalObject instanceof Destroyable) {
-                    if (((Destroyable) physicalObjectConflict).destroyObject()) {
-                        gameMap.removePhysicalObject(physicalObjectConflict.getId());
+                    if (((Destroyable) physicalObject).destroyObject()) {
+                        gameMap.removePhysicalObject(physicalObject.getId());
                     }
                 } else {
                     // logic mistake
@@ -83,6 +84,8 @@ public class Game implements Runnable, Comparable {
                     gameMap.removePhysicalObject(physicalObject.getId());
                 }
             }
+            sendMapToClients();
+            lock.unlock();
         }
     }
 
@@ -106,6 +109,7 @@ public class Game implements Runnable, Comparable {
 
     public boolean removeClientConnection(ClientConnection clientConnection) {
         if (containsClient(clientConnection)) {
+            clients.remove(clientConnection.getId());
             finish();
             return true;
         }

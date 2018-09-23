@@ -33,7 +33,7 @@ public class MainWindow {
         shell = new Shell(display, SWT.TITLE | SWT.CLOSE | SWT.DOUBLE_BUFFERED);
         color = new Color(null, 19, 0, 26);
         shell.setText("BattleCity");
-        shell.setSize(1000, 1000);
+        shell.setSize(1020, 1000);
         shell.setBackground(color);
         shell.setFocus();
         shell.setModified(false);

@@ -7,9 +7,7 @@ import com.battlecity.models.blocks.Bullet;
 import com.battlecity.models.blocks.Tank;
 import com.battlecity.server.controllers.GamesMgr;
 import com.battlecity.server.controllers.MessageServer;
-import com.battlecity.server.model.ClientConnection;
 import com.battlecity.utils.BytesUtils;
-import com.battlecity.utils.CollusionUtils;
 
 public class ShootMessageHandler implements MessageHandler {
 
@@ -30,11 +28,11 @@ public class ShootMessageHandler implements MessageHandler {
     public void processMessage(Message message) throws MissingParamException {
         long clientId = BytesUtils.byteArrayToLong(message.getRequiredProperty(MessageTypes.KEY_CONNECTION_ID));
         gamesMgr.executeSynchronized(clientId, (game) -> {
-            ClientConnection clientConnection = game.getClients().get(clientId);
             Tank tank = game.getTank(clientId);
             if (tank != null) {
                 Bullet bullet = tank.doShoot();
-                game.getGameMap().addPhysicalObjectToMap(bullet);
+                System.out.println(game.getGameMap().addPhysicalObjectToMap(bullet));
+                game.sendMapToClients();
             } else {
                 // new live, spawn new tank
                 game.tryToRespawnTank();

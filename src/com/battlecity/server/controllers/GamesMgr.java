@@ -3,12 +3,13 @@ package com.battlecity.server.controllers;
 import com.battlecity.server.model.ClientConnection;
 import com.battlecity.server.model.Game;
 
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.*;
 
 public class GamesMgr {
 
     private final ConcurrentSkipListSet<Game> games = new ConcurrentSkipListSet<>();
     private final ConcurrentSkipListSet<ClientConnection> waitingConnections = new ConcurrentSkipListSet<>();
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     private MessageServer messageServer;
 
@@ -41,7 +42,9 @@ public class GamesMgr {
                     // impossible case
                     continue;
                 }
-                games.add(new Game(clientConnection1, clientConnection2, messageServer));
+                Game game = new Game(clientConnection1, clientConnection2, messageServer);
+                executorService.scheduleAtFixedRate(game, 1, 1, TimeUnit.SECONDS);
+                games.add(game);
             }
         }
     }

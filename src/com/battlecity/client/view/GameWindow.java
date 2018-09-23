@@ -13,10 +13,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameWindow {
     private ClientApplication clientApplication;
@@ -25,7 +22,7 @@ public class GameWindow {
     private Color color;
     private Canvas canvas;
 
-    private final Map<Long,PaintListener> paintListeners = new HashMap<>();
+    private final Map<Long, PaintListener> paintListeners = new HashMap<>();
     private final Map<Long, Drawable> drawables = new HashMap<>();
 
     public GameWindow(Display display, Shell shell) {
@@ -33,7 +30,7 @@ public class GameWindow {
         this.shell = shell;
         color = new Color(null, 19, 0, 26);
         this.shell.setText("BattleCity");
-        this.shell.setSize(1000, 1000);
+        this.shell.setSize(1020, 1000);
         this.shell.setBackground(color);
         this.shell.setFocus();
         this.shell.setModified(false);
@@ -109,6 +106,10 @@ public class GameWindow {
                             message.setProperty(MessageTypes.KEY_DISPOSITION, Disposition.TOP.toString().getBytes());
                             clientApplication.getMessageSender().sendMessage(message);
                             break;
+                        case 32:
+                            message = new Message(MessageTypes.TYPE_SHOOT);
+                            clientApplication.getMessageSender().sendMessage(message);
+                            break;
                     }
                 } catch (IOException ex) {
                     System.out.println(ex);
@@ -120,20 +121,22 @@ public class GameWindow {
     }
 
     public void updateCanvas(Map<Long, Drawable> map) {
-        if (map == null || map.isEmpty()) {
-            return;
-        }
         display.asyncExec(() -> {
-            drawables.forEach((id, drawable) -> {
-                Drawable currDrawable = map.remove(id);
-                if (currDrawable==null){
-                    drawables.remove(id);
-                    paintListeners.remove(id);
+            System.out.println(map.size());
+            Iterator<Drawable> iterator = drawables.values().iterator();
+            while (iterator.hasNext()) {
+                Drawable drawable = iterator.next();
+                Drawable currDrawable = map.remove(drawable.getId());
+                if (currDrawable == null) {
+                    System.out.println("remove");
+                    iterator.remove();
+                    canvas.removePaintListener(paintListeners.remove(drawable.getId()));
+                    continue;
                 }
                 drawable.updateDataForDrawing(currDrawable);
-            });
-            map.forEach((id, drawable)->{
-                drawables.put(id,drawable);
+            }
+            map.forEach((id, drawable) -> {
+                drawables.put(id, drawable);
                 paintListeners.put(id, drawable.draw(canvas));
             });
             canvas.redraw();

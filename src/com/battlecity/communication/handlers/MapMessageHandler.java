@@ -40,10 +40,10 @@ public class MapMessageHandler implements MessageHandler {
             Object o = objectInputStream.readObject();
             if (o instanceof GameMap) {
                 GameMap gameMap = (GameMap) o;
-                Map<Long,Drawable> map = new HashMap<>();
-                for (Map.Entry<Long, PhysicalObject> entry: gameMap.getPhysicalObjects().entrySet()){
-                    if (entry.getValue() instanceof Drawable){
-                        map.put(entry.getKey(),(Drawable) entry.getValue());
+                Map<Long, Drawable> map = new HashMap<>();
+                for (Map.Entry<Long, PhysicalObject> entry : gameMap.getPhysicalObjects().entrySet()) {
+                    if (entry.getValue() instanceof Drawable) {
+                        map.put(entry.getKey(), (Drawable) entry.getValue());
                     }
                 }
                 gameWindow.updateCanvas(map);

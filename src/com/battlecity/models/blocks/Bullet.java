@@ -2,18 +2,27 @@ package com.battlecity.models.blocks;
 
 import com.battlecity.models.*;
 import com.battlecity.models.Iterable;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Canvas;
 
-public class Bullet extends PhysicalObject implements Destroyable, Iterable {
+public class Bullet extends PhysicalObject implements Destroyable, Iterable, Drawable {
 
     private final Disposition disposition;
     private final Tank owner;
     private final int speed;
+    private final int step;
+    private final MapSize mapSize;
 
-    public Bullet(int coordinateX, int coordinateY, int height, int width, Disposition disposition, Tank owner) {
-        super(coordinateX, coordinateY, height, width);
+    public Bullet(int coordinateX, int coordinateY, MapSize mapSize, Disposition disposition, Tank owner) {
+        super(coordinateX, coordinateY, mapSize.getBulletArea().getHeight(), mapSize.getBulletArea().getWidth());
+        this.mapSize = mapSize;
         this.disposition = disposition;
         this.owner = owner;
-        this.speed = 4;
+        this.speed = 10;
+        this.step = 1;
     }
 
     @Override
@@ -25,12 +34,12 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable {
 
     @Override
     public Area getAreaAfterIterate() {
-        return this.disposition.getAreaAfterOffset(getArea(), speed);
+        return this.disposition.getAreaAfterOffset(getArea(), step * speed);
     }
 
     @Override
     public boolean destroyObject() {
-        // one shoot - one destroy
+        // one bullet - one destroy
         return true;
     }
 
@@ -40,5 +49,31 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable {
 
     public Disposition getDisposition() {
         return disposition;
+    }
+
+    @Override
+    public PaintListener draw(Canvas canvas) {
+        PaintListener paintListener = new PaintListener() {
+            @Override
+            public void paintControl(PaintEvent paintEvent) {
+                Rectangle rectangle = canvas.getBounds();
+                paintEvent.gc.setForeground(new Color(null, 255, 255, 255));
+                float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
+                float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
+                paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
+                        (int) (proportionsY * getCoordinateY()),
+                        (int) (proportionsX * getArea().getWidth()),
+                        (int) (proportionsY * getArea().getHeight()));
+            }
+        };
+        canvas.addPaintListener(paintListener);
+        return paintListener;
+    }
+
+    @Override
+    public void updateDataForDrawing(Drawable drawable) {
+        Bullet bullet = (Bullet) drawable;
+        setCoordinateX(bullet.getCoordinateX());
+        setCoordinateY(bullet.getCoordinateY());
     }
 }

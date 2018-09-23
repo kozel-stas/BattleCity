@@ -39,14 +39,14 @@ public enum Disposition {
         switch (this) {
             case TOP:
                 newArea = new Area(tankArea.getCoordinateX() + tankArea.getWidth() / 2 - bulletArea.getWidth() / 2,
-                        tankArea.getCoordinateY() - 2, bulletArea.getHeight(), bulletArea.getWidth());
+                        tankArea.getCoordinateY() - 2 - bulletArea.getHeight(), bulletArea.getHeight(), bulletArea.getWidth());
                 break;
             case BOTTOM:
                 newArea = new Area(tankArea.getCoordinateX() + tankArea.getWidth() / 2 - bulletArea.getWidth() / 2,
                         tankArea.getCoordinateY() + tankArea.getHeight() + 2, bulletArea.getHeight(), bulletArea.getWidth());
                 break;
             case LEFT:
-                newArea = new Area(tankArea.getCoordinateX() - 2,
+                newArea = new Area(tankArea.getCoordinateX() - 2 - bulletArea.getWidth(),
                         tankArea.getCoordinateY() + tankArea.getHeight() / 2 - bulletArea.getHeight() / 2, bulletArea.getHeight(), bulletArea.getWidth());
                 break;
             case RIGHT:
