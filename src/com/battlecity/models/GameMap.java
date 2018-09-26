@@ -29,20 +29,22 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * |
  * \/
  */
-public class GameMap implements Serializable {
+public class GameMap {
 
-    private final MapSize mapSize;
+    private final GameProperties gameProperties;
 
     private final ConcurrentSkipListMap<Long, PhysicalObject> physicalObjects = new ConcurrentSkipListMap<>();
     private final ConcurrentSkipListMap<Long, Movable> movableObjects = new ConcurrentSkipListMap<>();
     private final ConcurrentSkipListMap<Long, Iterable> iterableObjects = new ConcurrentSkipListMap<>();
     private final ConcurrentSkipListMap<Long, Destroyable> destroyableObjects = new ConcurrentSkipListMap<>();
+    private final ConcurrentSkipListMap<Long, Drawable> drawableObjects = new ConcurrentSkipListMap<>();
     // clientId -> Tank
-    private ConcurrentSkipListMap<Long, Tank> tanks = new ConcurrentSkipListMap<>();
-    private ConcurrentSkipListMap<Long, Fortress> fortresses = new ConcurrentSkipListMap<>();
+    private final ConcurrentSkipListMap<Long, Tank> tanks = new ConcurrentSkipListMap<>();
+    // clientId -> Fortress
+    private final ConcurrentSkipListMap<Long, Fortress> fortresses = new ConcurrentSkipListMap<>();
 
-    public GameMap(MapSize mapSize, Fortress fortress1, Fortress fortress2) {
-        this.mapSize = mapSize;
+    public GameMap(GameProperties gameProperties, Fortress fortress1, Fortress fortress2) {
+        this.gameProperties = gameProperties;
         fortresses.put(fortress1.getOwner(), fortress1);
         fortresses.put(fortress2.getOwner(), fortress2);
         addPhysicalObjectToMap(fortress1);
@@ -100,6 +102,7 @@ public class GameMap implements Serializable {
             movableObjects.remove(physicalObject.getId());
             destroyableObjects.remove(physicalObject.getId());
             iterableObjects.remove(physicalObject.getId());
+            drawableObjects.remove(physicalObject.getId());
             return physicalObject;
         }
         return null;
@@ -120,6 +123,9 @@ public class GameMap implements Serializable {
         if (physicalObject instanceof Iterable) {
             iterableObjects.put(physicalObject.getId(), (Iterable) physicalObject);
         }
+        if (physicalObject instanceof Drawable) {
+            drawableObjects.put(physicalObject.getId(), (Drawable) physicalObject);
+        }
     }
 
     public ConcurrentSkipListMap<Long, Iterable> getIterableObjects() {
@@ -130,18 +136,18 @@ public class GameMap implements Serializable {
         return physicalObjects;
     }
 
-    public MapSize getMapSize() {
-        return mapSize;
+    public GameProperties getGameProperties() {
+        return gameProperties;
     }
 
     public boolean spawnTankForClient(Long clientID) {
         Tank tank = tanks.get(clientID);
         if (tank == null) {
-            Area area = SpawnUtils.findPlaceForTank(mapSize, this, fortresses.get(clientID));
+            Area area = SpawnUtils.findPlaceForTank(gameProperties, this, fortresses.get(clientID));
             if (area == null) {
                 return false;
             }
-            tank = new Tank(area.getCoordinateX(), area.getCoordinateY(), mapSize);
+            tank = new Tank(area.getCoordinateX(), area.getCoordinateY(), gameProperties);
             if (addPhysicalObjectToMap(tank)) {
                 tanks.put(clientID, tank);
                 return true;
@@ -154,17 +160,21 @@ public class GameMap implements Serializable {
         return tanks.get(clientID);
     }
 
-    public Tank removeTank(long clientID){
+    public Tank removeTank(long clientID) {
         return tanks.remove(clientID);
     }
 
-    public Tank removeTank(Tank tank){
+    public Tank removeTank(Tank tank) {
         for (Map.Entry<Long, Tank> entry : tanks.entrySet()) {
             if (tank.equals(entry.getValue())) {
-                return tanks.remove(entry.getKey());
+                return removeTank(entry.getKey());
             }
         }
         return null;
+    }
+
+    public ConcurrentSkipListMap<Long, Drawable> getDrawableObjects() {
+        return drawableObjects;
     }
 
 }

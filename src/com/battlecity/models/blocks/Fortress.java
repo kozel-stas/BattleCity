@@ -2,7 +2,7 @@ package com.battlecity.models.blocks;
 
 import com.battlecity.models.Destroyable;
 import com.battlecity.models.Drawable;
-import com.battlecity.models.MapSize;
+import com.battlecity.models.GameProperties;
 import com.battlecity.models.PhysicalObject;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -12,12 +12,12 @@ import org.eclipse.swt.widgets.Canvas;
 
 public class Fortress extends PhysicalObject implements Destroyable, Drawable {
 
-    private final MapSize mapSize;
+    private final GameProperties gameProperties;
     private transient final long owner;
 
-    public Fortress(int coordinateX, int coordinateY, MapSize mapSize, long clientID) {
-        super(coordinateX, coordinateY, mapSize.getBlockArea().getHeight(), mapSize.getBlockArea().getWidth());
-        this.mapSize = mapSize;
+    public Fortress(int coordinateX, int coordinateY, GameProperties gameProperties, long clientID) {
+        super(coordinateX, coordinateY, gameProperties.getBlockArea().getHeight(), gameProperties.getBlockArea().getWidth());
+        this.gameProperties = gameProperties;
         this.owner = clientID;
     }
 
@@ -33,12 +33,20 @@ public class Fortress extends PhysicalObject implements Destroyable, Drawable {
             public void paintControl(PaintEvent paintEvent) {
                 Rectangle rectangle = canvas.getBounds();
                 paintEvent.gc.setForeground(new Color(null, 125, 125, 125));
-                float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
-                float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
-                paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
+                float proportionsY = rectangle.height / gameProperties.getMapArea().getHeight();
+                float proportionsX = rectangle.width / gameProperties.getMapArea().getWidth();
+                paintEvent.gc.drawRectangle(
+                        (int) (proportionsX * getCoordinateX()),
                         (int) (proportionsY * getCoordinateY()),
                         (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight()));
+                        (int) (proportionsY * getArea().getHeight())
+                );
+                paintEvent.gc.drawOval(
+                        (int) (proportionsX * getCoordinateX()),
+                        (int) (proportionsY * getCoordinateY()),
+                        (int) (proportionsX * getArea().getWidth()),
+                        (int) (proportionsY * getArea().getHeight())
+                );
             }
         };
         canvas.addPaintListener(paintListener);

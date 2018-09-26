@@ -32,11 +32,10 @@ public class ShootMessageHandler implements MessageHandler {
             Tank tank = game.getTank(clientId);
             if (tank != null) {
                 Bullet bullet = tank.doShoot();
-                if(!game.getGameMap().addPhysicalObjectToMap(bullet)){
+                if (bullet != null && !game.getGameMap().addPhysicalObjectToMap(bullet)) {
                     PhysicalObject physicalObject = game.getGameMap().getPhysicalObject(bullet);
                     game.processConflictPhysicalObject(physicalObject);
                 }
-                game.sendMapToClients();
             } else {
                 // new live, spawn new tank
                 game.tryToRespawnTank();

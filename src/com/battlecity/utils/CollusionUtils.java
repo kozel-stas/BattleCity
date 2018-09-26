@@ -62,7 +62,7 @@ public class CollusionUtils {
     }
 
     public static boolean checkCollusion(GameMap gameMap, Area area) {
-        Area mapArea = gameMap.getMapSize().getMapArea();
+        Area mapArea = gameMap.getGameProperties().getMapArea();
         return !(0 <= area.getCoordinateX() && mapArea.getCoordinateX1() >= area.getCoordinateX1()
                 && 0 <= area.getCoordinateY() && mapArea.getCoordinateY1() >= area.getCoordinateY1());
     }

@@ -37,25 +37,29 @@ public class MoveMessageHandler implements MessageHandler {
         gamesMgr.executeSynchronized(clientId, (game) -> {
             Tank tank = game.getTank(clientId);
             if (tank != null) {
-                if (tank.getMoveTask() != null) {
-                    tank.getMoveTask().cancel(true);
-                }
+                tank.cancelMoveTask(true);
                 final AtomicInteger speed = new AtomicInteger(tank.getSpeed());
                 tank.setMoveTask(executorService.scheduleAtFixedRate(() -> {
                     gamesMgr.executeSynchronized(clientId, (curGame) -> {
                         if (speed.get() == 0) {
-                            tank.getMoveTask().cancel(false);
+                            tank.cancelMoveTask(false);
                             return;
                         }
                         Tank curTank = curGame.getTank(clientId);
                         if (curTank != null && curTank.getId() == tank.getId()) {
-                            Area areaAfterMove = curTank.getAreaAfterMove(disposition);
-                            PhysicalObject physicalObject = curGame.getGameMap().getPhysicalObject(areaAfterMove, curTank.getId());
-                            if (physicalObject == null && !CollusionUtils.checkCollusion(curGame.getGameMap(), areaAfterMove)) {
+                            if (disposition == curTank.getDisposition()) {
+                                Area areaAfterMove = curTank.getAreaAfterMove(disposition);
+                                PhysicalObject physicalObject = curGame.getGameMap().getPhysicalObject(areaAfterMove, curTank.getId());
+                                if (physicalObject == null && !CollusionUtils.checkCollusion(curGame.getGameMap(), areaAfterMove)) {
+                                    curTank.move(disposition);
+                                }
+                            } else {
+                                // only change orientation))
                                 curTank.move(disposition);
+                                tank.cancelMoveTask(false);
                             }
                         } else {
-                            tank.getMoveTask().cancel(false);
+                            tank.cancelMoveTask(false);
                         }
                         speed.getAndDecrement();
                     });

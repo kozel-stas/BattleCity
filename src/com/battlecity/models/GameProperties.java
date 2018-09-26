@@ -1,6 +1,6 @@
 package com.battlecity.models;
 
-public enum MapSize {
+public enum GameProperties {
 
     STANDART(
             new Area(0, 0, 1000, 1000),
@@ -11,7 +11,8 @@ public enum MapSize {
             1,
             2,
             5,
-            3
+            3,
+            2000 // milliseconds
     ),
 //    MEDIUM(mapArea, blockArea, tankArea, bulletArea),
 //    LARGE(mapArea, blockArea, tankArea, bulletArea),
@@ -26,16 +27,18 @@ public enum MapSize {
     private final int tankStep;
     private final int tankSpeed;
     private final int bulletStep;
+    private final long reloadTime;
 
-    MapSize(Area mapArea,
-            Area blockArea,
-            Area tankArea,
-            Area bulletArea,
-            int tankLives,
-            int blockLives,
-            int tankStep,
-            int tankSpeed,
-            int bulletStep
+    GameProperties(Area mapArea,
+                   Area blockArea,
+                   Area tankArea,
+                   Area bulletArea,
+                   int tankLives,
+                   int blockLives,
+                   int tankStep,
+                   int tankSpeed,
+                   int bulletStep,
+                   long reloadTime
     ) {
         this.mapArea = mapArea;
         this.blockArea = blockArea;
@@ -46,6 +49,7 @@ public enum MapSize {
         this.tankStep = tankStep;
         this.tankSpeed = tankSpeed;
         this.bulletStep = bulletStep;
+        this.reloadTime = reloadTime;
     }
 
 
@@ -85,4 +89,7 @@ public enum MapSize {
         return tankStep;
     }
 
+    public long getReloadTime() {
+        return reloadTime;
+    }
 }

@@ -7,7 +7,8 @@ public enum Disposition {
     TOP,
     BOTTOM,
     LEFT,
-    RIGHT,;
+    RIGHT,
+    ;
 
     @NotNull
     public Area getAreaAfterOffset(Area area, int offset) {
@@ -33,9 +34,9 @@ public enum Disposition {
         return newArea;
     }
 
-    public Area getAreaForBullet(Area tankArea, MapSize mapSize) {
+    public Area getAreaForBullet(Area tankArea, GameProperties gameProperties) {
         Area newArea = null;
-        Area bulletArea = mapSize.getBulletArea();
+        Area bulletArea = gameProperties.getBulletArea();
         switch (this) {
             case TOP:
                 newArea = new Area(tankArea.getCoordinateX() + tankArea.getWidth() / 2 - bulletArea.getWidth() / 2,

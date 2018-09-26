@@ -160,13 +160,14 @@ public class Game implements Runnable, Comparable {
         lock.unlock();
     }
 
-    public void sendMapToClients() {
+    private void sendMapToClients() {
         try {
             Message message = new Message(MessageTypes.TYPE_MAP);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(gameMap);
+            objectOutputStream.writeObject(gameMap.getDrawableObjects());
             objectOutputStream.flush();
+            // TODO fix me, need to send only updated object.
             message.setProperty(MessageTypes.KEY_GAME_MAP, byteArrayOutputStream.toByteArray());
 
             messageServer.sendMessageToAllConnection(message, clients.values());

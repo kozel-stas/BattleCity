@@ -60,4 +60,5 @@ public class PhysicalObject implements Serializable {
         }
         return false;
     }
+
 }

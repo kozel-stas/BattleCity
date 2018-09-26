@@ -6,6 +6,7 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,16 +17,19 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
     private Disposition disposition;
     private transient final int speed;
     private transient final int step;
-    private MapSize mapSize;
+    private GameProperties gameProperties;
     private transient Future<?> moveTask;
+    private transient long lastShootTime;
+    private transient long reloadTime;
 
-    public Tank(int coordinateX, int coordinateY, MapSize mapSize) {
-        super(coordinateX, coordinateY, mapSize.getTankArea().getHeight(), mapSize.getTankArea().getWidth());
-        lives = new AtomicInteger(mapSize.getTankLives());
+    public Tank(int coordinateX, int coordinateY, GameProperties gameProperties) {
+        super(coordinateX, coordinateY, gameProperties.getTankArea().getHeight(), gameProperties.getTankArea().getWidth());
+        this.gameProperties = gameProperties;
+        lives = new AtomicInteger(gameProperties.getTankLives());
         disposition = Disposition.TOP; // default value
-        step = mapSize.getTankStep();
-        speed = mapSize.getTankSpeed();
-        this.mapSize = mapSize;
+        step = gameProperties.getTankStep();
+        speed = gameProperties.getTankSpeed();
+        reloadTime = gameProperties.getReloadTime();
     }
 
     @Override
@@ -52,9 +56,14 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         return this.disposition.getAreaAfterOffset(getArea(), step);
     }
 
+    @Nullable
     public Bullet doShoot() {
-        Area area = this.disposition.getAreaForBullet(getArea(), mapSize);
-        return new Bullet(area.getCoordinateX(), area.getCoordinateY(), mapSize, this.disposition, this);
+        if (lastShootTime + reloadTime < System.currentTimeMillis()) {
+            lastShootTime = System.currentTimeMillis();
+            Area area = this.disposition.getAreaForBullet(getArea(), gameProperties);
+            return new Bullet(area.getCoordinateX(), area.getCoordinateY(), gameProperties, this.disposition, this);
+        }
+        return null;
     }
 
     public Disposition getDisposition() {
@@ -68,12 +77,14 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
             public void paintControl(PaintEvent paintEvent) {
                 Rectangle rectangle = canvas.getBounds();
                 paintEvent.gc.setForeground(new Color(null, 255, 255, 255));
-                float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
-                float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
-                paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
+                float proportionsY = rectangle.height / gameProperties.getMapArea().getHeight();
+                float proportionsX = rectangle.width / gameProperties.getMapArea().getWidth();
+                paintEvent.gc.drawRectangle(
+                        (int) (proportionsX * getCoordinateX()),
                         (int) (proportionsY * getCoordinateY()),
                         (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight()));
+                        (int) (proportionsY * getArea().getHeight())
+                );
             }
         };
         canvas.addPaintListener(paintListener);
@@ -88,8 +99,10 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         setCoordinateY(tank.getCoordinateY());
     }
 
-    public Future<?> getMoveTask() {
-        return moveTask;
+    public void cancelMoveTask(boolean interrupt) {
+        if (moveTask != null) {
+            moveTask.cancel(interrupt);
+        }
     }
 
     public void setMoveTask(Future<?> moveTask) {

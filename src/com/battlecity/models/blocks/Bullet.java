@@ -13,14 +13,14 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable, Dra
     private final Disposition disposition;
     private transient final Tank owner;
     private transient final int step;
-    private final MapSize mapSize;
+    private final GameProperties gameProperties;
 
-    public Bullet(int coordinateX, int coordinateY, MapSize mapSize, Disposition disposition, Tank owner) {
-        super(coordinateX, coordinateY, mapSize.getBulletArea().getHeight(), mapSize.getBulletArea().getWidth());
-        this.mapSize = mapSize;
+    public Bullet(int coordinateX, int coordinateY, GameProperties gameProperties, Disposition disposition, Tank owner) {
+        super(coordinateX, coordinateY, gameProperties.getBulletArea().getHeight(), gameProperties.getBulletArea().getWidth());
+        this.gameProperties = gameProperties;
         this.disposition = disposition;
         this.owner = owner;
-        this.step = mapSize.getBulletStep();
+        this.step = gameProperties.getBulletStep();
     }
 
     @Override
@@ -56,8 +56,8 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable, Dra
             public void paintControl(PaintEvent paintEvent) {
                 Rectangle rectangle = canvas.getBounds();
                 paintEvent.gc.setForeground(new Color(null, 255, 255, 255));
-                float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
-                float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
+                float proportionsY = rectangle.height / gameProperties.getMapArea().getHeight();
+                float proportionsX = rectangle.width / gameProperties.getMapArea().getWidth();
                 paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
                         (int) (proportionsY * getCoordinateY()),
                         (int) (proportionsX * getArea().getWidth()),

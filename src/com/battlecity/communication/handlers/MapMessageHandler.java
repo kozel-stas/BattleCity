@@ -5,16 +5,11 @@ import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.exceptions.MissingParamException;
 import com.battlecity.communication.messages.Message;
 import com.battlecity.models.Drawable;
-import com.battlecity.models.GameMap;
-import com.battlecity.models.PhysicalObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class MapMessageHandler implements MessageHandler {
 
@@ -38,15 +33,9 @@ public class MapMessageHandler implements MessageHandler {
             );
 
             Object o = objectInputStream.readObject();
-            if (o instanceof GameMap) {
-                GameMap gameMap = (GameMap) o;
-                Map<Long, Drawable> map = new HashMap<>();
-                for (Map.Entry<Long, PhysicalObject> entry : gameMap.getPhysicalObjects().entrySet()) {
-                    if (entry.getValue() instanceof Drawable) {
-                        map.put(entry.getKey(), (Drawable) entry.getValue());
-                    }
-                }
-                gameWindow.updateCanvas(map);
+            if (o instanceof ConcurrentSkipListMap) {
+                ConcurrentSkipListMap<Long, Drawable> gameMap = (ConcurrentSkipListMap<Long, Drawable>) o;
+                gameWindow.updateCanvas(gameMap);
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

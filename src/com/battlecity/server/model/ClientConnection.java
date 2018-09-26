@@ -51,4 +51,5 @@ public class ClientConnection implements Comparable {
     public ObjectOutputStream getObjectOutputStream() {
         return objectOutputStream;
     }
+
 }

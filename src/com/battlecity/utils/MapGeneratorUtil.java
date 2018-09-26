@@ -1,7 +1,7 @@
 package com.battlecity.utils;
 
 import com.battlecity.models.GameMap;
-import com.battlecity.models.MapSize;
+import com.battlecity.models.GameProperties;
 import com.battlecity.models.PhysicalObject;
 import com.battlecity.models.blocks.Block;
 import com.battlecity.models.blocks.Fortress;
@@ -11,43 +11,43 @@ import java.util.Random;
 public class MapGeneratorUtil {
 
     public static GameMap generateMap(long clientID1, long clientID2) {
-        Fortress[] fortresses = getAreaForFortresses(MapSize.STANDART, clientID1, clientID2);
-        GameMap gameMap = new GameMap(MapSize.STANDART, fortresses[0], fortresses[1]);
-        PhysicalObject[] physicalObjects1 = generateWallAroundFortress(MapSize.STANDART, fortresses[0]);
-        PhysicalObject[] physicalObjects2 = generateWallAroundFortress(MapSize.STANDART, fortresses[1]);
+        Fortress[] fortresses = getAreaForFortresses(GameProperties.STANDART, clientID1, clientID2);
+        GameMap gameMap = new GameMap(GameProperties.STANDART, fortresses[0], fortresses[1]);
+        PhysicalObject[] physicalObjects1 = generateWallAroundFortress(GameProperties.STANDART, fortresses[0]);
+        PhysicalObject[] physicalObjects2 = generateWallAroundFortress(GameProperties.STANDART, fortresses[1]);
         addPhysicalObjectsToGameMapIfItPossible(gameMap, physicalObjects1);
         addPhysicalObjectsToGameMapIfItPossible(gameMap, physicalObjects2);
         return gameMap;
     }
 
-    private static Fortress[] getAreaForFortresses(MapSize mapSize, long clientID1, long clientID2) {
+    private static Fortress[] getAreaForFortresses(GameProperties gameProperties, long clientID1, long clientID2) {
         Random random = new Random();
         if (random.nextBoolean()) {
-            int end = (int) mapSize.getMapArea().getWidth() / mapSize.getBlockArea().getWidth();
+            int end = (int) gameProperties.getMapArea().getWidth() / gameProperties.getBlockArea().getWidth();
             int abstractPosition = random.nextInt(end);
-            Fortress fortress1 = new Fortress(mapSize.getBlockArea().getWidth() * abstractPosition, 0, mapSize, clientID1);
-            Fortress fortress2 = new Fortress(mapSize.getBlockArea().getWidth() * abstractPosition, mapSize.getMapArea().getHeight() - mapSize.getBlockArea().getHeight(), mapSize, clientID2);
+            Fortress fortress1 = new Fortress(gameProperties.getBlockArea().getWidth() * abstractPosition, 0, gameProperties, clientID1);
+            Fortress fortress2 = new Fortress(gameProperties.getBlockArea().getWidth() * abstractPosition, gameProperties.getMapArea().getHeight() - gameProperties.getBlockArea().getHeight(), gameProperties, clientID2);
             return new Fortress[]{fortress1, fortress2};
         } else {
-            int end = (int) mapSize.getMapArea().getHeight() / mapSize.getBlockArea().getHeight();
+            int end = (int) gameProperties.getMapArea().getHeight() / gameProperties.getBlockArea().getHeight();
             int abstractPosition = random.nextInt(end);
-            Fortress fortress1 = new Fortress(0, mapSize.getBlockArea().getHeight() * abstractPosition, mapSize, clientID1);
-            Fortress fortress2 = new Fortress(mapSize.getMapArea().getWidth() - mapSize.getBlockArea().getWidth(), mapSize.getBlockArea().getHeight() * abstractPosition, mapSize, clientID2);
+            Fortress fortress1 = new Fortress(0, gameProperties.getBlockArea().getHeight() * abstractPosition, gameProperties, clientID1);
+            Fortress fortress2 = new Fortress(gameProperties.getMapArea().getWidth() - gameProperties.getBlockArea().getWidth(), gameProperties.getBlockArea().getHeight() * abstractPosition, gameProperties, clientID2);
             return new Fortress[]{fortress1, fortress2};
         }
     }
 
-    private static PhysicalObject[] generateWallAroundFortress(MapSize mapSize, Fortress fortress) {
+    private static PhysicalObject[] generateWallAroundFortress(GameProperties gameProperties, Fortress fortress) {
         PhysicalObject[] physicalObjects = new PhysicalObject[9];
-        int x = fortress.getCoordinateX() - mapSize.getBlockArea().getWidth();
-        int y = fortress.getCoordinateY() - mapSize.getBlockArea().getHeight();
+        int x = fortress.getCoordinateX() - gameProperties.getBlockArea().getWidth();
+        int y = fortress.getCoordinateY() - gameProperties.getBlockArea().getHeight();
         int iter = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 physicalObjects[iter] = new Block(
-                        x + i * mapSize.getBlockArea().getWidth(),
-                        y + j * mapSize.getBlockArea().getHeight(),
-                        mapSize);
+                        x + i * gameProperties.getBlockArea().getWidth(),
+                        y + j * gameProperties.getBlockArea().getHeight(),
+                        gameProperties);
                 iter++;
             }
         }
