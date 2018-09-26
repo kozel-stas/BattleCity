@@ -43,8 +43,8 @@ public class GameMap implements Serializable {
 
     public GameMap(MapSize mapSize, Fortress fortress1, Fortress fortress2) {
         this.mapSize = mapSize;
-        fortresses.put(fortress1.getClientID(), fortress1);
-        fortresses.put(fortress2.getClientID(), fortress2);
+        fortresses.put(fortress1.getOwner(), fortress1);
+        fortresses.put(fortress2.getOwner(), fortress2);
         addPhysicalObjectToMap(fortress1);
         addPhysicalObjectToMap(fortress2);
     }

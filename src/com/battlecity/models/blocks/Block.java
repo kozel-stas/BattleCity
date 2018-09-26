@@ -10,20 +10,22 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 
-public class Fortress extends PhysicalObject implements Destroyable, Drawable {
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Block extends PhysicalObject implements Drawable, Destroyable {
 
     private final MapSize mapSize;
-    private transient final long owner;
+    private transient final AtomicInteger lives;
 
-    public Fortress(int coordinateX, int coordinateY, MapSize mapSize, long clientID) {
+    public Block(int coordinateX, int coordinateY, MapSize mapSize) {
         super(coordinateX, coordinateY, mapSize.getBlockArea().getHeight(), mapSize.getBlockArea().getWidth());
         this.mapSize = mapSize;
-        this.owner = clientID;
+        this.lives = new AtomicInteger(mapSize.getBlockLives());
     }
 
     @Override
     public boolean destroyObject() {
-        return true;
+        return lives.decrementAndGet() == 0;
     }
 
     @Override
@@ -32,13 +34,25 @@ public class Fortress extends PhysicalObject implements Destroyable, Drawable {
             @Override
             public void paintControl(PaintEvent paintEvent) {
                 Rectangle rectangle = canvas.getBounds();
-                paintEvent.gc.setForeground(new Color(null, 125, 125, 125));
+                paintEvent.gc.setForeground(new Color(null, 255, 255, 255));
                 float proportionsY = rectangle.height / mapSize.getMapArea().getHeight();
                 float proportionsX = rectangle.width / mapSize.getMapArea().getWidth();
                 paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
                         (int) (proportionsY * getCoordinateY()),
                         (int) (proportionsX * getArea().getWidth()),
                         (int) (proportionsY * getArea().getHeight()));
+                paintEvent.gc.drawLine(
+                        (int) (proportionsX * getCoordinateX()),
+                        (int) (proportionsY * getCoordinateY()),
+                        (int) (proportionsX * getCoordinateX1()),
+                        (int) (proportionsY * getCoordinateY1())
+                );
+                paintEvent.gc.drawLine(
+                        (int) (proportionsX * getCoordinateX1()),
+                        (int) (proportionsY * getCoordinateY()),
+                        (int) (proportionsX * getCoordinateX()),
+                        (int) (proportionsY * getCoordinateY1())
+                );
             }
         };
         canvas.addPaintListener(paintListener);
@@ -47,12 +61,7 @@ public class Fortress extends PhysicalObject implements Destroyable, Drawable {
 
     @Override
     public void updateDataForDrawing(Drawable object) {
-        // nothing to do
-        // it's not movable
-    }
-
-    public long getOwner() {
-        return owner;
+        //can't update / not movable
     }
 
 }

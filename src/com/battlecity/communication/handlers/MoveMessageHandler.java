@@ -49,7 +49,6 @@ public class MoveMessageHandler implements MessageHandler {
                         }
                         Tank curTank = curGame.getTank(clientId);
                         if (curTank != null && curTank.getId() == tank.getId()) {
-                            System.out.println("start moving");
                             Area areaAfterMove = curTank.getAreaAfterMove(disposition);
                             PhysicalObject physicalObject = curGame.getGameMap().getPhysicalObject(areaAfterMove, curTank.getId());
                             if (physicalObject == null && !CollusionUtils.checkCollusion(curGame.getGameMap(), areaAfterMove)) {
@@ -67,4 +66,5 @@ public class MoveMessageHandler implements MessageHandler {
             }
         });
     }
+
 }

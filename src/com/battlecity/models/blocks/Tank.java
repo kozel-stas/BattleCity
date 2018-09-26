@@ -14,26 +14,23 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
 
     private final AtomicInteger lives;
     private Disposition disposition;
-    private final int speed;
-    private final int step;
+    private transient final int speed;
+    private transient final int step;
     private MapSize mapSize;
     private transient Future<?> moveTask;
 
     public Tank(int coordinateX, int coordinateY, MapSize mapSize) {
         super(coordinateX, coordinateY, mapSize.getTankArea().getHeight(), mapSize.getTankArea().getWidth());
-        lives = new AtomicInteger(1);
+        lives = new AtomicInteger(mapSize.getTankLives());
         disposition = Disposition.TOP; // default value
-        step = 2; //default value > 0
-        speed = 5;
+        step = mapSize.getTankStep();
+        speed = mapSize.getTankSpeed();
         this.mapSize = mapSize;
     }
 
     @Override
     public boolean destroyObject() {
-        if (lives.decrementAndGet() == 0) {
-            return true;
-        }
-        return false;
+        return lives.decrementAndGet() == 0;
     }
 
     @Override

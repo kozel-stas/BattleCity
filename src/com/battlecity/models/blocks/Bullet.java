@@ -11,9 +11,8 @@ import org.eclipse.swt.widgets.Canvas;
 public class Bullet extends PhysicalObject implements Destroyable, Iterable, Drawable {
 
     private final Disposition disposition;
-    private final Tank owner;
-    private final int speed;
-    private final int step;
+    private transient final Tank owner;
+    private transient final int step;
     private final MapSize mapSize;
 
     public Bullet(int coordinateX, int coordinateY, MapSize mapSize, Disposition disposition, Tank owner) {
@@ -21,8 +20,7 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable, Dra
         this.mapSize = mapSize;
         this.disposition = disposition;
         this.owner = owner;
-        this.speed = 3;
-        this.step = 1;
+        this.step = mapSize.getBulletStep();
     }
 
     @Override
@@ -34,7 +32,7 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable, Dra
 
     @Override
     public Area getAreaAfterIterate() {
-        return this.disposition.getAreaAfterOffset(getArea(), step * speed);
+        return this.disposition.getAreaAfterOffset(getArea(), step);
     }
 
     @Override
