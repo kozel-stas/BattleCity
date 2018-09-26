@@ -23,20 +23,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Game implements Runnable, Comparable {
 
-    private long id;
-
-    private GameMap gameMap;
-
+    private final long id;
+    private final GameMap gameMap;
     private boolean completed = false;
-
-    private Map<Long, ClientConnection> clients;
-
+    private final Map<Long, ClientConnection> clients;
     private final Lock lock = new ReentrantLock();
-
     private final MessageServer messageServer;
 
     public Game(ClientConnection clientConnection1, ClientConnection clientConnection2, MessageServer messageServer) {
-        System.out.println("new Game");
         this.id = IDGeneratorUtil.generate();
         this.clients = new TreeMap<>();
         this.clients.put(clientConnection1.getId(), clientConnection1);
@@ -47,12 +41,15 @@ public class Game implements Runnable, Comparable {
     }
 
     private void finish() {
+        lock.lock();
         completed = true;
         Message message = new Message(MessageTypes.TYPE_FINISH);
         try {
             messageServer.sendMessageToAllConnection(message, clients.values());
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
     }
 
@@ -83,7 +80,6 @@ public class Game implements Runnable, Comparable {
             lock.unlock();
         }
     }
-
 
     public void processConflictPhysicalObject(PhysicalObject physicalObjectConflict) {
         if (physicalObjectConflict instanceof Destroyable) {
@@ -137,8 +133,15 @@ public class Game implements Runnable, Comparable {
         return clients.containsKey(id);
     }
 
-    public Lock getLock() {
-        return lock;
+    public void executeSynchronized(SynchronizeAction action) {
+        lock.lock();
+        try {
+            action.execute(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+        }
     }
 
     public Tank getTank(long clientId) {
@@ -155,7 +158,6 @@ public class Game implements Runnable, Comparable {
             gameMap.spawnTankForClient(clientConnection.getId());
         }
         lock.unlock();
-        sendMapToClients();
     }
 
     public void sendMapToClients() {

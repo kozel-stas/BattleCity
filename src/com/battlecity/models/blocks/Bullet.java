@@ -21,7 +21,7 @@ public class Bullet extends PhysicalObject implements Destroyable, Iterable, Dra
         this.mapSize = mapSize;
         this.disposition = disposition;
         this.owner = owner;
-        this.speed = 20;
+        this.speed = 3;
         this.step = 1;
     }
 

@@ -5,6 +5,7 @@ import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.messages.Message;
 import com.battlecity.models.Disposition;
 import com.battlecity.models.Drawable;
+import com.battlecity.utils.BytesUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.Color;
@@ -42,7 +43,6 @@ public class GameWindow {
 
         this.shell.redraw();
 
-
         shell.addShellListener(new ShellAdapter() {
             @Override
             public void shellClosed(ShellEvent e) {
@@ -61,29 +61,11 @@ public class GameWindow {
         canvas.setSize(1000, 1000);
         canvas.setBackground(color);
 
-        canvas.addMouseMoveListener(new MouseMoveListener() {
-
-            @Override
-            public void mouseMove(MouseEvent mouseEvent) {
-
-            }
-
-        });
-
-        canvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseDown(MouseEvent e) {
-
-            }
-
-        });
-
         canvas.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
                 try {
-                    System.out.println(e.keyCode);
                     Message message;
                     switch (e.keyCode) {
                         case 16777220:
@@ -93,7 +75,7 @@ public class GameWindow {
                             break;
                         case 16777219:
                             message = new Message(MessageTypes.TYPE_MOVE);
-                            message.setProperty(MessageTypes.KEY_DISPOSITION, Disposition.LEFT.toString().getBytes());
+                            message.setProperty(MessageTypes.KEY_DISPOSITION, BytesUtils.toByteArray(Disposition.LEFT.toString()));
                             clientApplication.getMessageSender().sendMessage(message);
                             break;
                         case 16777218:
@@ -112,7 +94,7 @@ public class GameWindow {
                             break;
                     }
                 } catch (IOException ex) {
-                    System.out.println(ex);
+                    ex.printStackTrace();
                 }
             }
         });
@@ -122,13 +104,11 @@ public class GameWindow {
 
     public void updateCanvas(Map<Long, Drawable> map) {
         display.asyncExec(() -> {
-            System.out.println(map.size());
             Iterator<Drawable> iterator = drawables.values().iterator();
             while (iterator.hasNext()) {
                 Drawable drawable = iterator.next();
                 Drawable currDrawable = map.remove(drawable.getId());
                 if (currDrawable == null) {
-                    System.out.println("remove");
                     iterator.remove();
                     canvas.removePaintListener(paintListeners.remove(drawable.getId()));
                     continue;
@@ -149,7 +129,6 @@ public class GameWindow {
 
     public void disposeWindow() {
         canvas.dispose();
-        clientApplication.getMessageSender().shutdown();
     }
 
 }

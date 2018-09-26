@@ -20,11 +20,11 @@ public class MessageSenderListener implements Runnable {
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private final MessageRouter messageRouter;
 
-    public MessageSenderListener(MessageRouter messageRouter) {
+    MessageSenderListener(MessageRouter messageRouter) {
         this.messageRouter = messageRouter;
     }
 
-    public synchronized void tryConnect() throws IOException {
+    private synchronized void tryConnect() throws IOException {
         if (isReady()) {
             return;
         }
@@ -72,7 +72,6 @@ public class MessageSenderListener implements Runnable {
                 Object object = objectInputStream.readObject();
 
                 if (object instanceof Message) {
-                    System.out.println("Start");
                     Message message = (Message) object;
                     messageRouter.processMessage(message);
                 }
@@ -81,4 +80,5 @@ public class MessageSenderListener implements Runnable {
             e.printStackTrace();
         }
     }
+
 }

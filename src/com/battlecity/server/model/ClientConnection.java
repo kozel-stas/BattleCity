@@ -41,7 +41,7 @@ public class ClientConnection implements Comparable {
     @Override
     public int compareTo(@NotNull Object o) {
         ClientConnection clientConnection = (ClientConnection) o;
-        return (int) Long.compare(id, clientConnection.id);
+        return Long.compare(id, clientConnection.id);
     }
 
     public ObjectInputStream getObjectInputStream() {

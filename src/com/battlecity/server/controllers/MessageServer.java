@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class MessageServer implements Runnable {
 
-    public static final int PORT = 3030;
+    private static final int PORT = 3030;
     private static final Logger LOG = Logger.getLogger(MessageServer.class.getName());
     private static final int NUMBER_OF_THREADS = 4;
 
@@ -33,7 +33,7 @@ public class MessageServer implements Runnable {
         this.gamesMgr = gamesMgr;
     }
 
-    public synchronized void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {
+    private synchronized void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {
         clientConnection.getObjectOutputStream().writeObject(message);
         clientConnection.getObjectOutputStream().reset();
     }
@@ -41,7 +41,6 @@ public class MessageServer implements Runnable {
     public void sendMessageToAllConnection(Message message, Collection<ClientConnection> clientConnections) throws IOException {
         for (ClientConnection clientConnection : clientConnections) {
             sendMessageToConnection(message, clientConnection);
-            System.out.println("Send message to connection, " + clientConnection);
         }
     }
 
@@ -58,12 +57,9 @@ public class MessageServer implements Runnable {
 
                 ClientConnection clientConnection = new ClientConnection(socket);
 
-                System.out.println("New conection " + clientConnection.getId());
-
                 connections.add(clientConnection);
                 gamesMgr.addConnection(clientConnection);
             }
-
         } catch (IOException e) {
             LOG.log(Level.OFF, "Fatal error", e);
         }
@@ -75,33 +71,34 @@ public class MessageServer implements Runnable {
 
     public void shutdown() {
         this.shutdown = true;
+        executor.shutdown();
     }
 
     private class ReadTask implements Runnable {
 
         @Override
-        public synchronized void run() {
-            for (ClientConnection clientConnection : connections) {
-                try {
-                    if (clientConnection.getSocket().getInputStream().available() <= 0) {
-                        continue;
+        public void run() {
+            if (isRunning()) {
+                for (ClientConnection clientConnection : connections) {
+                    try {
+                        if (clientConnection.getSocket().getInputStream().available() <= 0) {
+                            continue;
+                        }
+
+                        Object object = clientConnection.getObjectInputStream().readObject();
+
+                        if (object instanceof Message) {
+                            Message message = (Message) object;
+                            message.setProperty(MessageTypes.KEY_CONNECTION_ID, BytesUtils.toByteArray(clientConnection.getId()));
+
+                            executor.execute(() -> {
+                                messageRouter.processMessage(message);
+                            });
+                        }
+
+                    } catch (IOException | ClassNotFoundException e) {
+                        LOG.log(Level.WARNING, "Exception was thrown", e);
                     }
-
-                    Object object = clientConnection.getObjectInputStream().readObject();
-
-                    System.out.println("ReadTask");
-                    if (object instanceof Message) {
-                        System.out.println("New message");
-                        Message message = (Message) object;
-                        message.setProperty(MessageTypes.KEY_CONNECTION_ID, BytesUtils.toByteArray(clientConnection.getId()));
-
-                        executor.execute(() -> {
-                            messageRouter.processMessage(message);
-                        });
-                    }
-
-                } catch (IOException | ClassNotFoundException e) {
-                    LOG.log(Level.WARNING, "Exception was thrown", e);
                 }
             }
         }
@@ -110,22 +107,24 @@ public class MessageServer implements Runnable {
     private class AvailabilityTask implements Runnable {
 
         @Override
-        public synchronized void run() {
-            Iterator<ClientConnection> iterator = connections.iterator();
-            while (iterator.hasNext()) {
-                ClientConnection clientConnection = iterator.next();
-                try {
-                    if (clientConnection.getSocket().isClosed()) {
+        public void run() {
+            if (isRunning()) {
+                Iterator<ClientConnection> iterator = connections.iterator();
+                while (iterator.hasNext()) {
+                    ClientConnection clientConnection = iterator.next();
+                    try {
+                        if (clientConnection.getSocket().isClosed()) {
+                            iterator.remove();
+                            gamesMgr.removeConnection(clientConnection);
+                            continue;
+                        }
+                        sendMessageToConnection(new Message(MessageTypes.TYPE_AVAILABILITY), clientConnection);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                         iterator.remove();
                         gamesMgr.removeConnection(clientConnection);
                         continue;
                     }
-                    sendMessageToConnection(new Message(MessageTypes.TYPE_AVAILABILITY), clientConnection);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    iterator.remove();
-                    gamesMgr.removeConnection(clientConnection);
-                    continue;
                 }
             }
         }

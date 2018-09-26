@@ -7,6 +7,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Tank extends PhysicalObject implements Movable, Destroyable, Drawable {
@@ -16,13 +17,14 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
     private final int speed;
     private final int step;
     private MapSize mapSize;
+    private transient Future<?> moveTask;
 
     public Tank(int coordinateX, int coordinateY, MapSize mapSize) {
         super(coordinateX, coordinateY, mapSize.getTankArea().getHeight(), mapSize.getTankArea().getWidth());
         lives = new AtomicInteger(1);
         disposition = Disposition.TOP; // default value
-        step = 1; //default value > 0
-        speed = 10;
+        step = 2; //default value > 0
+        speed = 5;
         this.mapSize = mapSize;
     }
 
@@ -50,7 +52,7 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         if (this.disposition != disposition) {
             return getArea();
         }
-        return this.disposition.getAreaAfterOffset(getArea(), speed * step);
+        return this.disposition.getAreaAfterOffset(getArea(), step);
     }
 
     public Bullet doShoot() {
@@ -87,6 +89,18 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
         this.disposition = tank.disposition;
         setCoordinateX(tank.getCoordinateX());
         setCoordinateY(tank.getCoordinateY());
+    }
+
+    public Future<?> getMoveTask() {
+        return moveTask;
+    }
+
+    public void setMoveTask(Future<?> moveTask) {
+        this.moveTask = moveTask;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
 }

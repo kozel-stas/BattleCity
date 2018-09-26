@@ -2,11 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44dfb46e-c084-45ae-b4d5-19cb60fd02b9" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/battlecity/server/model/SynchronizeAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/communication/handlers/MoveMessageHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/communication/handlers/MoveMessageHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/communication/handlers/ShootMessageHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/communication/handlers/ShootMessageHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/models/GameMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/models/GameMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/models/blocks/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/models/blocks/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/models/blocks/Tank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/models/blocks/Tank.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/ServerApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/ServerApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/GamesMgr$SynchronizeAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/GamesMgr.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/GamesMgr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/MessageServer$AvailabilityTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/MessageServer$AvailabilityTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/MessageServer$ReadTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/MessageServer$ReadTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/MessageServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/controllers/MessageServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleCity/com/battlecity/server/model/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/battlecity/communication/handlers/ShootMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/communication/handlers/ShootMessageHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/battlecity/models/GameMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/models/GameMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/communication/messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/communication/messages/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/models/blocks/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/models/blocks/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/server/ServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/server/ServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/server/controllers/MessageServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/server/controllers/MessageServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/battlecity/server/model/ClientConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/server/model/ClientConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/battlecity/server/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/battlecity/server/model/Game.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -25,123 +47,61 @@
       <FILTER>com.battlecity.server.controllers.*</FILTER>
     </SUITE>
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost [2]" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost [2]" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost [2]" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="task_2: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/model/Game.java">
+      <file leaf-file-name="FinishWindow.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="148" selection-start-line="148" selection-end-line="148" />
+            <state relative-caret-position="338">
+              <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#equals#0;class#Game#0" />
-                <element signature="e#4971#4972#0" expanded="true" />
-                <element signature="method#tryToRespawnTank#0;class#Game#0" />
-                <element signature="method#sendMapToClients#0;class#Game#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameMap.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/GameMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="90" selection-start-line="90" selection-end-line="90" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#generifyPhysicalObjects#0;class#GameMap#0" />
-                <element signature="method#spawnTankForClient#0;class#GameMap#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FinishGameMessageHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="23" column="55" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#437#438#0" expanded="true" />
-                <element signature="e#481#482#0" expanded="true" />
-                <element signature="e#281#282#0" expanded="true" />
-                <element signature="e#315#316#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GamesMgr.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameWindow.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameWindow.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="114" column="39" selection-start-line="114" selection-start-column="39" selection-end-line="114" selection-end-column="39" />
+            <state relative-caret-position="316">
+              <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5372#5373#0" expanded="true" />
-                <element signature="e#5400#5401#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tank.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Fortress.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Fortress.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#updateDataForDrawing#0;class#Fortress#0" />
-                <element signature="e#1992#1993#0" expanded="true" />
-                <element signature="e#2023#2024#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShootMessageHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/ShootMessageHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="35" column="81" lean-forward="true" selection-start-line="35" selection-start-column="81" selection-end-line="35" selection-end-column="81" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapGeneratorUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/MapGeneratorUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2041#4046#0" expanded="true" />
+                <element signature="e#4045#4046#0" expanded="true" />
+                <element signature="e#5013#5014#0" expanded="true" />
+                <element signature="e#5045#5046#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -150,8 +110,8 @@
       <file leaf-file-name="MainWindow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="141" column="19" selection-start-line="141" selection-start-column="19" selection-end-line="141" selection-end-column="19" />
+            <state relative-caret-position="136">
+              <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -181,6 +141,10 @@
       <find>physicalObject2</find>
       <find>physicalObject1</find>
       <find>area3</find>
+      <find>teacher_subject_group</find>
+      <find>private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();</find>
+      <find>moved</find>
+      <find>lock</find>
     </findStrings>
     <replaceStrings>
       <replace>data</replace>
@@ -203,11 +167,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/battlecity/utils/GenerateId.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/models/ClientConnection.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/models/Game.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/SocketServer.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/controllers/GameMgr.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/MapGeneratorUtils.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/IDGenerator.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/IDGeneratorUtil.java" />
@@ -217,13 +176,10 @@
         <option value="$PROJECT_DIR$/src/com/battlecity/server/controllers/SocketServer.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageServer.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/Movable.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/model/ClientConnection.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/communication/MessageRouter.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSender.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListenner.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/AvailabilityMessageHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/communication/messages/Message.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/ServerApplication.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/PhysicalObject.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/Area.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/client/ClientApplication.java" />
@@ -231,29 +187,37 @@
         <option value="$PROJECT_DIR$/src/com/battlecity/client/Main.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/Tests.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/BytesUtils.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/controllers/MessageServer.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/Test.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/CollusionUtils.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/Disposition.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/MapMessageHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListener.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/models/blocks/Bullet.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/Drawable.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/blocks/Fortress.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/MapGeneratorUtil.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/utils/SpawnUtils.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/communication/MessageTypes.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/ClientApplication.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java" />
-        <option value="$PROJECT_DIR$/src/com/battlecity/server/model/Game.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/ShootMessageHandler.java" />
         <option value="$PROJECT_DIR$/src/com/battlecity/models/GameMap.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/85a2da03-0cbc-43e2-a048-ce4b71eabad8/console.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/console_1.sql" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/ClientApplication.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/console.sql" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/models/blocks/Bullet.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/ServerApplication.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/model/Syn.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/model/SynchronizeAction.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/model/Game.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/model/ClientConnection.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/communication/messages/Message.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/controllers/MessageServer.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListener.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java" />
+        <option value="$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java" />
       </list>
     </option>
   </component>
@@ -264,8 +228,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
+    <option name="x" value="697" />
+    <option name="width" value="1230" />
     <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -305,91 +269,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="battlecity" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
-              <item name="handlers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
-              <item name="messages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="blocks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleCity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleCity" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="battlecity" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
             </path>
           </expand>
           <select />
@@ -401,14 +285,15 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Game&#9;FILE&#9;file://C:/Users/a4tec/Desktop/MRZ/BattleCity/src/com/battlecity/server/model/Game.java" />
+    <property name="SearchEverywhereHistoryKey" value="Games&#9;FILE&#9;file://C:/Users/a4tec/Desktop/MRZ/BattleCity/src/com/battlecity/server/controllers/GamesMgr.java&#10;Class&#9;PSI&#9;JAVA://java.lang.Class&#10;Game&#9;FILE&#9;file://C:/Users/a4tec/Desktop/MRZ/BattleCity/src/com/battlecity/server/model/Game.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/swt.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="database.main" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -500,7 +385,9 @@
       <workItem from="1537202089121" duration="108000" />
       <workItem from="1537602764517" duration="4422000" />
       <workItem from="1537633090741" duration="10426000" />
-      <workItem from="1537684622955" duration="23197000" />
+      <workItem from="1537684622955" duration="51299000" />
+      <workItem from="1537853419100" duration="8634000" />
+      <workItem from="1537971254726" duration="11272000" />
     </task>
     <task id="LOCAL-00001" summary="Optimization server side, start creating client side">
       <created>1537109127524</created>
@@ -551,14 +438,21 @@
       <option name="project" value="LOCAL" />
       <updated>1537709506675</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="BattleCity - Beta version.">
+      <created>1537711268252</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1537711268252</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110723000" />
+    <option name="totallyTimeSpent" value="158731000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="762" y="0" width="781" height="870" extended-state="0" />
+    <frame x="558" y="0" width="984" height="870" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -570,57 +464,59 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3355177" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33944955" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31029987" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.27216494" />
+      <window_info anchor="right" id="Database" order="3" weight="0.7233073" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3916991" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3918742" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32865733" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="8" visible="true" weight="0.3294423" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32865733" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3294423" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14778645" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3355177" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="12" visible="true" weight="0.3294423" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Maven Projects" order="8" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994812" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32865733" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.32555124" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="Image Layers" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27216494" />
+      <window_info anchor="right" id="Database" order="6" weight="0.7233073" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3294423" />
-      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.3294271" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3916991" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -648,7 +544,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java</url>
-          <line>131</line>
+          <line>111</line>
           <properties />
           <option name="timeStamp" value="88" />
         </line-breakpoint>
@@ -658,8 +554,14 @@
           <properties />
           <option name="timeStamp" value="89" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java</url>
+          <line>54</line>
+          <properties />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="90" />
+      <option name="time" value="91" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -676,174 +578,53 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>(physicalObject1.getCoordinateX() &lt;= physicalObject1.getCoordinateX1() &amp;&amp; physicalObject1.getCoordinateX1() &lt;= physicalObject1.getCoordinateX1())</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>(physicalObject1.getCoordinateX() &lt;= physicalObject2.getCoordinateX() &amp;&amp; physicalObject2.getCoordinateX() &lt;= physicalObject1.getCoordinateX1()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>((physicalObject1.getCoordinateY() &lt;= physicalObject2.getCoordinateY() &amp;&amp; physicalObject2.getCoordinateY() &lt;= physicalObject1.getCoordinateY1())</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>getPhysicalObject(physicalObject) == null</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>(physicalObject.getCoordinateX() &lt;= area.getCoordinateX1() &amp;&amp; area.getCoordinateX1() &lt;= physicalObject.getCoordinateX1())</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>(physicalObject.getCoordinateX() &lt;= area.getCoordinateX() &amp;&amp; area.getCoordinateX() &lt;= physicalObject.getCoordinateX1()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>(physicalObject.getCoordinateY() &lt;= area.getCoordinateY1() &amp;&amp; area.getCoordinateY1() &lt;= physicalObject.getCoordinateY1())</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>(physicalObject.getCoordinateY() &lt;= area.getCoordinateY() &amp;&amp; area.getCoordinateY() &lt;= physicalObject.getCoordinateY1()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>CollusionUtils.checkCollusion(physicalObject, area)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/AvailabilityMessageHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/model/ClientConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/messages/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="19" column="63" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/concurrent/Executors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-715">
-          <caret line="513" selection-start-line="513" selection-end-line="513" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/IDGeneratorUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/ServerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/Area.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
-          <folding>
-            <element signature="e#533#534#0" expanded="true" />
-            <element signature="e#576#577#0" expanded="true" />
-            <element signature="e#868#869#0" expanded="true" />
-            <element signature="e#914#915#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
-            <element signature="e#1002#1003#0" expanded="true" />
-            <element signature="e#1030#1031#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/MessageRouter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/controllers/MapConverterController.java" />
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="263" column="12" selection-start-line="263" selection-start-column="12" selection-end-line="263" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/Tests.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/BytesUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="32" column="25" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/controllers/MessageServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="53" column="87" selection-start-line="53" selection-start-column="87" selection-end-line="53" selection-end-column="87" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#ReadTask#0;class#MessageServer#0" />
-            <element signature="class#AvailabilityTask#0;class#MessageServer#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/Movable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="301" column="6" selection-start-line="301" selection-start-column="6" selection-end-line="301" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/swt-debug.jar!/org/eclipse/swt/widgets/EventTable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/swt-debug.jar!/org/eclipse/swt/widgets/Display.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
@@ -858,35 +639,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/PhysicalObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1112#1113#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/Test.java" />
     <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/CollusionUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="45" column="133" lean-forward="true" selection-start-line="45" selection-start-column="133" selection-end-line="45" selection-end-column="133" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#checkCollusion#0;class#CollusionUtils#0" />
-            <element signature="method#checkCollusion#1;class#CollusionUtils#0" />
-            <element signature="method#checkCollusion#2;class#CollusionUtils#0" />
-            <element signature="method#checkCollusion#4;class#CollusionUtils#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -908,9 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -932,10 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
-          <folding>
-            <element signature="e#2357#2358#0" expanded="true" />
-            <element signature="e#2402#2403#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -943,16 +693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="208" column="47" selection-start-line="208" selection-start-column="47" selection-end-line="208" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="43" column="66" selection-start-line="43" selection-start-column="66" selection-end-line="43" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -974,10 +714,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="89" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#findPlaceForTank#0;class#SpawnUtils#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -992,10 +728,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="260" column="19" selection-start-line="260" selection-start-column="19" selection-end-line="260" selection-end-column="19" />
-          <folding>
-            <element signature="e#9178#9179#0" expanded="true" />
-            <element signature="e#9226#9227#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1006,16 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/controllers/ClientApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/concurrent/ScheduledExecutorService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
@@ -1023,131 +745,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#846#847#0" expanded="true" />
-            <element signature="e#896#897#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Bullet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1635#2367#0" expanded="true" />
-            <element signature="e#2366#2367#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/MapGeneratorUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Fortress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#updateDataForDrawing#0;class#Fortress#0" />
-            <element signature="e#1992#1993#0" expanded="true" />
-            <element signature="e#2023#2024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="141" column="19" selection-start-line="141" selection-start-column="19" selection-end-line="141" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="114" column="39" selection-start-line="114" selection-start-column="39" selection-end-line="114" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5372#5373#0" expanded="true" />
-            <element signature="e#5400#5401#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="23" column="55" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-            <element signature="e#281#282#0" expanded="true" />
-            <element signature="e#315#316#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/model/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="148" selection-start-line="148" selection-end-line="148" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#equals#0;class#Game#0" />
-            <element signature="e#4971#4972#0" expanded="true" />
-            <element signature="method#tryToRespawnTank#0;class#Game#0" />
-            <element signature="method#sendMapToClients#0;class#Game#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1161,14 +762,274 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Fortress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/schema/pbz_part1/table/student_groups">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/schema/task_1/table/teacher_subject_group">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/schema/task_1/table/teachers">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/schema/task_1/table/student_groups">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/schema/task_1/table/subjects">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/schema/task_2/table/details_by_provider_on_project">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/console_1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2278">
+          <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f2cdfb9c-2f65-4ac3-a369-2d56e1f5a4c6/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/ServerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="20" column="55" lean-forward="true" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Bullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/PhysicalObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="e#1087#1088#0" expanded="true" />
+            <element signature="e#1112#1113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/GameMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="90" selection-start-line="90" selection-end-line="90" />
+        <state relative-caret-position="-511">
+          <caret line="26" column="4" lean-forward="true" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/models/blocks/Tank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding>
+            <element signature="e#3412#3413#0" expanded="true" />
+            <element signature="e#3440#3441#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/model/SynchronizeAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/MoveMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <folding>
+            <element signature="method#processMessage#0;class#MoveMessageHandler#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/model/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
+          <folding>
+            <element signature="method#Game#0;class#Game#0" />
+            <element signature="method#finish#0;class#Game#0" />
+            <element signature="method#run#0;class#Game#0" />
+            <element signature="method#processConflictPhysicalObject#0;class#Game#0" />
+            <element signature="method#equals#0;class#Game#0" />
+            <element signature="method#removeClientConnection#0;class#Game#0" />
+            <element signature="method#containsClient#0;class#Game#0" />
+            <element signature="method#executeSynchronized#0;class#Game#0" />
+            <element signature="method#tryToRespawnTank#0;class#Game#0" />
+            <element signature="method#sendMapToClients#0;class#Game#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/model/ClientConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="43" column="30" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#generifyPhysicalObjects#0;class#GameMap#0" />
-            <element signature="method#spawnTankForClient#0;class#GameMap#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/utils/BytesUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="36" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/messages/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/controllers/MessageServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
+          <folding>
+            <element signature="class#ReadTask#0;class#MessageServer#0" />
+            <element signature="method#run#0;class#ReadTask#0;class#MessageServer#0" />
+            <element signature="class#AvailabilityTask#0;class#MessageServer#0" />
+            <element signature="method#run#0;class#AvailabilityTask#0;class#MessageServer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/concurrent/ExecutorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="156" column="9" selection-start-line="156" selection-start-column="9" selection-end-line="156" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/server/controllers/GamesMgr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#addConnection#0;class#GamesMgr#0" />
+            <element signature="method#removeConnection#0;class#GamesMgr#0" />
+            <element signature="method#tryToFindGame#0;class#GamesMgr#0" />
+            <element signature="method#executeSynchronized#0;class#GamesMgr#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/controllers/ClientApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/controllers/MessageSenderListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
+            <element signature="method#run#0;class#MessageSenderListener#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/communication/handlers/FinishGameMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/FinishWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/battlecity/client/view/GameWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2041#4046#0" expanded="true" />
+            <element signature="e#4045#4046#0" expanded="true" />
+            <element signature="e#5013#5014#0" expanded="true" />
+            <element signature="e#5045#5046#0" expanded="true" />
           </folding>
         </state>
       </provider>

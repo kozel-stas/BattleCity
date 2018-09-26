@@ -2,10 +2,14 @@ package com.battlecity.server.controllers;
 
 import com.battlecity.server.model.ClientConnection;
 import com.battlecity.server.model.Game;
+import com.battlecity.server.model.SynchronizeAction;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-public class GamesMgr {
+public final class GamesMgr {
 
     private final ConcurrentSkipListSet<Game> games = new ConcurrentSkipListSet<>();
     private final ConcurrentSkipListSet<ClientConnection> waitingConnections = new ConcurrentSkipListSet<>();
@@ -13,12 +17,12 @@ public class GamesMgr {
 
     private MessageServer messageServer;
 
-    public void addConnection(ClientConnection clientConnection) {
+    void addConnection(ClientConnection clientConnection) {
         waitingConnections.add(clientConnection);
-        findGame();
+        tryToFindGame();
     }
 
-    public synchronized void removeConnection(ClientConnection clientConnection) {
+    synchronized void removeConnection(ClientConnection clientConnection) {
         synchronized (waitingConnections) {
             if (waitingConnections.remove(clientConnection)) {
                 return;
@@ -33,13 +37,13 @@ public class GamesMgr {
         }
     }
 
-    private synchronized void findGame() {
+    private synchronized void tryToFindGame() {
         synchronized (waitingConnections) {
             while (waitingConnections.size() > 1) {
                 ClientConnection clientConnection1 = waitingConnections.pollFirst();
                 ClientConnection clientConnection2 = waitingConnections.pollFirst();
                 Game game = new Game(clientConnection1, clientConnection2, messageServer);
-                executorService.scheduleAtFixedRate(game, 1, 1, TimeUnit.SECONDS);
+                executorService.scheduleAtFixedRate(game, 10, 50, TimeUnit.MILLISECONDS);
                 games.add(game);
             }
         }
@@ -48,22 +52,10 @@ public class GamesMgr {
     public void executeSynchronized(long id, SynchronizeAction synchronizeAction) {
         for (Game game : games) {
             if (game.containsClient(id)) {
-                game.getLock().lock();
-                try {
-                    synchronizeAction.execute(game);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    game.getLock().unlock();
-                }
+                game.executeSynchronized(synchronizeAction);
+                return;
             }
         }
-    }
-
-    public interface SynchronizeAction {
-
-        void execute(Game game);
-
     }
 
     public void setMessageServer(MessageServer messageServer) {

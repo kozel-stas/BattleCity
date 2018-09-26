@@ -18,7 +18,7 @@ public class ServerApplication {
     public ServerApplication() {
         messageRouter = new MessageRouter();
         gamesMgr = new GamesMgr();
-        messageRouter.addMessageHandler(new MoveMessageHandler(gamesMgr, messageServer));
+        messageRouter.addMessageHandler(new MoveMessageHandler(gamesMgr));
         messageRouter.addMessageHandler(new ShootMessageHandler(gamesMgr, messageServer));
         messageServer = new MessageServer(messageRouter, gamesMgr);
         gamesMgr.setMessageServer(messageServer);//TODO fix

@@ -23,8 +23,8 @@ public class FinishGameMessageHandler implements MessageHandler {
     @Override
     public void processMessage(Message message) throws MissingParamException {
         Display.getDefault().asyncExec(()->{
-            gameWindow.disposeWindow();
             new FinishWindow(Display.getDefault(), gameWindow.getShell());
+            gameWindow.disposeWindow();
         });
     }
 

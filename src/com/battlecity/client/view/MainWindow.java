@@ -26,7 +26,7 @@ public class MainWindow {
     private Color textStartGameColor;
     private Color textExitColor;
 
-    private int currentPosition = 1;
+    private int currentPosition = 0;
 
     public MainWindow() {
         display = new Display();
