@@ -27,7 +27,6 @@ public class MapMessageHandler implements MessageHandler {
     @Override
     public void processMessage(Message message) throws MissingParamException {
         try {
-            System.out.println("Start process Map");
             ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(
                     message.getRequiredProperty(MessageTypes.KEY_GAME_MAP))
             );

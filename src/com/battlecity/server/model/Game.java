@@ -9,8 +9,8 @@ import com.battlecity.models.blocks.Fortress;
 import com.battlecity.models.blocks.Tank;
 import com.battlecity.server.controllers.MessageServer;
 import com.battlecity.utils.CollusionUtils;
-import com.battlecity.utils.IDGeneratorUtil;
-import com.battlecity.utils.MapGeneratorUtil;
+import com.battlecity.utils.IDGeneratorUtils;
+import com.battlecity.utils.MapGeneratorUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
@@ -31,11 +31,11 @@ public class Game implements Runnable, Comparable {
     private final MessageServer messageServer;
 
     public Game(ClientConnection clientConnection1, ClientConnection clientConnection2, MessageServer messageServer) {
-        this.id = IDGeneratorUtil.generate();
+        this.id = IDGeneratorUtils.generateID();
         this.clients = new TreeMap<>();
         this.clients.put(clientConnection1.getId(), clientConnection1);
         this.clients.put(clientConnection2.getId(), clientConnection2);
-        this.gameMap = MapGeneratorUtil.generateMap(clientConnection1.getId(), clientConnection2.getId());
+        this.gameMap = MapGeneratorUtils.generateMap(clientConnection1.getId(), clientConnection2.getId());
         this.messageServer = messageServer;
         tryToRespawnTank();
     }

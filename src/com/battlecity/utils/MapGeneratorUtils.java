@@ -5,10 +5,13 @@ import com.battlecity.models.GameProperties;
 import com.battlecity.models.PhysicalObject;
 import com.battlecity.models.blocks.Block;
 import com.battlecity.models.blocks.Fortress;
+import com.battlecity.models.blocks.NonDestroyableBlock;
 
 import java.util.Random;
 
-public class MapGeneratorUtil {
+public class MapGeneratorUtils {
+
+    private static final Random random = new Random(System.currentTimeMillis());
 
     public static GameMap generateMap(long clientID1, long clientID2) {
         Fortress[] fortresses = getAreaForFortresses(GameProperties.STANDART, clientID1, clientID2);
@@ -17,6 +20,8 @@ public class MapGeneratorUtil {
         PhysicalObject[] physicalObjects2 = generateWallAroundFortress(GameProperties.STANDART, fortresses[1]);
         addPhysicalObjectsToGameMapIfItPossible(gameMap, physicalObjects1);
         addPhysicalObjectsToGameMapIfItPossible(gameMap, physicalObjects2);
+        generateRandomDestroyableObjectsAndAddIfItPossible(GameProperties.STANDART, gameMap);
+        generateRandomNonDestroyableObjectsAndAddIfItPossible(GameProperties.STANDART, gameMap);
         return gameMap;
     }
 
@@ -57,6 +62,40 @@ public class MapGeneratorUtil {
     private static void addPhysicalObjectsToGameMapIfItPossible(GameMap gameMap, PhysicalObject[] physicalObjects) {
         for (PhysicalObject physicalObject : physicalObjects) {
             gameMap.addPhysicalObjectToMap(physicalObject);
+        }
+    }
+
+    private static void generateRandomDestroyableObjectsAndAddIfItPossible(GameProperties gameProperties, GameMap gameMap) {
+        int max = random.nextInt(gameProperties.getMaxDestroyableBlock() - 5); // 5 - a wall size
+        int maxRandX = (int) gameProperties.getMapArea().getWidth() / gameProperties.getBlockArea().getWidth();
+        int maxRandY = (int) gameProperties.getMapArea().getHeight() / gameProperties.getBlockArea().getHeight();
+        for (int i = 0; i < max; i++) {
+            int x = random.nextInt(maxRandX);
+            int y = random.nextInt(maxRandY);
+            PhysicalObject physicalObject = new Block(
+                    x * gameProperties.getBlockArea().getWidth(),
+                    y * gameProperties.getBlockArea().getHeight(),
+                    gameProperties);
+            if (!gameMap.addPhysicalObjectToMap(physicalObject)) {
+                i--;
+            }
+        }
+    }
+
+    private static void generateRandomNonDestroyableObjectsAndAddIfItPossible(GameProperties gameProperties, GameMap gameMap) {
+        int max = random.nextInt(gameProperties.getMaxNonDestroyableBlock());
+        int maxRandX = (int) gameProperties.getMapArea().getWidth() / gameProperties.getBlockArea().getWidth();
+        int maxRandY = (int) gameProperties.getMapArea().getHeight() / gameProperties.getBlockArea().getHeight();
+        for (int i = 0; i < max; i++) {
+            int x = random.nextInt(maxRandX);
+            int y = random.nextInt(maxRandY);
+            PhysicalObject physicalObject = new NonDestroyableBlock(
+                    x * gameProperties.getBlockArea().getWidth(),
+                    y * gameProperties.getBlockArea().getHeight(),
+                    gameProperties);
+            if (!gameMap.addPhysicalObjectToMap(physicalObject)) {
+                i--;
+            }
         }
     }
 

@@ -13,7 +13,7 @@ public class AvailabilityMessageHandler implements MessageHandler {
 
     @Override
     public void processMessage(Message message) throws MissingParamException {
-
+        // nothing to do
     }
 
 }

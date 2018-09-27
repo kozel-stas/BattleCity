@@ -6,14 +6,17 @@ import com.battlecity.server.model.SynchronizeAction;
 
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public final class GamesMgr {
 
     private final ConcurrentSkipListSet<Game> games = new ConcurrentSkipListSet<>();
     private final ConcurrentSkipListSet<ClientConnection> waitingConnections = new ConcurrentSkipListSet<>();
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService executorService;
+
+    public GamesMgr(ScheduledExecutorService executorService) {
+        this.executorService = executorService;
+    }
 
     private MessageServer messageServer;
 
