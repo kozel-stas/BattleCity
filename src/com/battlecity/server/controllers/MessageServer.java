@@ -19,18 +19,18 @@ public class MessageServer implements Runnable {
 
     private static final int PORT = 3030;
     private static final Logger LOG = Logger.getLogger(MessageServer.class.getName());
-    private static final int NUMBER_OF_THREADS = 4;
 
-    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
+    private final ScheduledExecutorService executor;
     private final ConcurrentSkipListSet<ClientConnection> connections = new ConcurrentSkipListSet<>();
     private final MessageRouter messageRouter;
     private final GamesMgr gamesMgr;
 
     private volatile boolean shutdown = false;
 
-    public MessageServer(MessageRouter messageRouter, GamesMgr gamesMgr) {
+    public MessageServer(MessageRouter messageRouter, GamesMgr gamesMgr, ScheduledExecutorService executor) {
         this.messageRouter = messageRouter;
         this.gamesMgr = gamesMgr;
+        this.executor = executor;
     }
 
     private synchronized void sendMessageToConnection(Message message, ClientConnection clientConnection) throws IOException {

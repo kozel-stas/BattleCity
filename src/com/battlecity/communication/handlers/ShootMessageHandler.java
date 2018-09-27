@@ -7,17 +7,14 @@ import com.battlecity.models.PhysicalObject;
 import com.battlecity.models.blocks.Bullet;
 import com.battlecity.models.blocks.Tank;
 import com.battlecity.server.controllers.GamesMgr;
-import com.battlecity.server.controllers.MessageServer;
 import com.battlecity.utils.BytesUtils;
 
 public class ShootMessageHandler implements MessageHandler {
 
     private GamesMgr gamesMgr;
-    private MessageServer messageServer;
 
-    public ShootMessageHandler(GamesMgr gamesMgr, MessageServer messageServer) {
+    public ShootMessageHandler(GamesMgr gamesMgr) {
         this.gamesMgr = gamesMgr;
-        this.messageServer = messageServer;
     }
 
     @Override

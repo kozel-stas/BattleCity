@@ -1,6 +1,6 @@
 package com.battlecity.models;
 
-import com.battlecity.utils.IDGeneratorUtil;
+import com.battlecity.utils.IDGeneratorUtils;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ public class PhysicalObject implements Serializable {
             int height,
             int width
     ) {
-        this.id = IDGeneratorUtil.generate();
+        this.id = IDGeneratorUtils.generateID();
         this.area = new Area(coordinateX, coordinateY, height, width);
     }
 

@@ -19,10 +19,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MoveMessageHandler implements MessageHandler {
 
     private final GamesMgr gamesMgr;
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService executorService;
 
-    public MoveMessageHandler(GamesMgr gamesMgr) {
+    public MoveMessageHandler(GamesMgr gamesMgr, ScheduledExecutorService executorService) {
         this.gamesMgr = gamesMgr;
+        this.executorService = executorService;
     }
 
     @Override

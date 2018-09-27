@@ -12,7 +12,9 @@ public enum GameProperties {
             2,
             5,
             3,
-            2000 // milliseconds
+            2000, // milliseconds
+            20,
+            5
     ),
 //    MEDIUM(mapArea, blockArea, tankArea, bulletArea),
 //    LARGE(mapArea, blockArea, tankArea, bulletArea),
@@ -28,6 +30,8 @@ public enum GameProperties {
     private final int tankSpeed;
     private final int bulletStep;
     private final long reloadTime;
+    private final int maxDestroyableBlock;
+    private final int maxNonDestroyableBlock;
 
     GameProperties(Area mapArea,
                    Area blockArea,
@@ -38,7 +42,9 @@ public enum GameProperties {
                    int tankStep,
                    int tankSpeed,
                    int bulletStep,
-                   long reloadTime
+                   long reloadTime,
+                   int maxDestroyableBlock,
+                   int maxNonDestroyableBlock
     ) {
         this.mapArea = mapArea;
         this.blockArea = blockArea;
@@ -50,6 +56,8 @@ public enum GameProperties {
         this.tankSpeed = tankSpeed;
         this.bulletStep = bulletStep;
         this.reloadTime = reloadTime;
+        this.maxDestroyableBlock = maxDestroyableBlock;
+        this.maxNonDestroyableBlock = maxNonDestroyableBlock;
     }
 
 
@@ -92,4 +100,13 @@ public enum GameProperties {
     public long getReloadTime() {
         return reloadTime;
     }
+
+    public int getMaxDestroyableBlock() {
+        return maxDestroyableBlock;
+    }
+
+    public int getMaxNonDestroyableBlock() {
+        return maxNonDestroyableBlock;
+    }
+
 }

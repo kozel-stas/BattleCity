@@ -1,6 +1,6 @@
 package com.battlecity.server.model;
 
-import com.battlecity.utils.IDGeneratorUtil;
+import com.battlecity.utils.IDGeneratorUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class ClientConnection implements Comparable {
     private long id;
 
     public ClientConnection(Socket socket) throws IOException {
-        this.id = IDGeneratorUtil.generate();
+        this.id = IDGeneratorUtils.generateID();
         this.socket = socket;
         objectInputStream = new ObjectInputStream(socket.getInputStream());
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
