@@ -3,10 +3,12 @@ package com.battlecity.server.model;
 
 import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.messages.Message;
-import com.battlecity.models.*;
-import com.battlecity.models.Iterable;
 import com.battlecity.models.blocks.Fortress;
 import com.battlecity.models.blocks.Tank;
+import com.battlecity.models.map.GameMap;
+import com.battlecity.models.properties.Destroyable;
+import com.battlecity.models.properties.Iterable;
+import com.battlecity.models.properties.Physical;
 import com.battlecity.server.controllers.MessageServer;
 import com.battlecity.utils.CollusionUtils;
 import com.battlecity.utils.IDGeneratorUtils;
@@ -20,8 +22,12 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Game implements Runnable, Comparable {
+
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
     private final long id;
     private final GameMap gameMap;
@@ -58,8 +64,8 @@ public class Game implements Runnable, Comparable {
         if (!completed) {
             lock.lock();
             for (Iterable iterable : gameMap.getIterableObjects().values()) {
-                PhysicalObject physicalObject = gameMap.getPhysicalObject(iterable.getId());
-                PhysicalObject physicalObjectConflict = gameMap.getPhysicalObject(iterable.getAreaAfterIterate(), iterable.getId());
+                Physical physicalObject = gameMap.getPhysicalObject(iterable.getId());
+                Physical physicalObjectConflict = gameMap.getPhysicalObject(iterable.getAreaAfterIterate(), iterable.getId());
                 boolean collusionWithMap = CollusionUtils.checkCollusion(gameMap, iterable.getAreaAfterIterate());
                 if (physicalObjectConflict == null && !collusionWithMap) {
                     iterable.doIterate();
@@ -68,12 +74,12 @@ public class Game implements Runnable, Comparable {
                 processConflictPhysicalObject(physicalObjectConflict);
                 if (physicalObject instanceof Destroyable) {
                     if (((Destroyable) physicalObject).destroyObject()) {
-                        gameMap.removePhysicalObject(physicalObject.getId());
+                        gameMap.removePhysical(physicalObject.getId());
                     }
                 } else {
                     // logic mistake
                     // remove object
-                    gameMap.removePhysicalObject(physicalObject.getId());
+                    gameMap.removePhysical(physicalObject.getId());
                 }
             }
             sendMapToClients();
@@ -81,10 +87,10 @@ public class Game implements Runnable, Comparable {
         }
     }
 
-    public void processConflictPhysicalObject(PhysicalObject physicalObjectConflict) {
+    public void processConflictPhysicalObject(Physical physicalObjectConflict) {
         if (physicalObjectConflict instanceof Destroyable) {
             if (((Destroyable) physicalObjectConflict).destroyObject()) {
-                gameMap.removePhysicalObject(physicalObjectConflict.getId());
+                gameMap.removePhysical(physicalObjectConflict.getId());
                 if (physicalObjectConflict instanceof Tank) {
                     Tank tank = (Tank) physicalObjectConflict;
                     if (gameMap.removeTank(tank) != null) {
@@ -171,8 +177,9 @@ public class Game implements Runnable, Comparable {
             message.setProperty(MessageTypes.KEY_GAME_MAP, byteArrayOutputStream.toByteArray());
 
             messageServer.sendMessageToAllConnection(message, clients.values());
+            LOG.log(Level.INFO, "Map send to clients", clients);
         } catch (IOException e) {
-            e.printStackTrace();
+            // ignore
         }
     }
 

@@ -3,8 +3,8 @@ package com.battlecity.client.view;
 import com.battlecity.client.controllers.ClientApplication;
 import com.battlecity.communication.MessageTypes;
 import com.battlecity.communication.messages.Message;
-import com.battlecity.models.Disposition;
-import com.battlecity.models.Drawable;
+import com.battlecity.models.map.Disposition;
+import com.battlecity.models.properties.Drawable;
 import com.battlecity.utils.BytesUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
@@ -14,7 +14,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class GameWindow {
     private ClientApplication clientApplication;

@@ -1,4 +1,4 @@
-package com.battlecity.models;
+package com.battlecity.models.properties;
 
 /**
  * For objects that can be destroyed.

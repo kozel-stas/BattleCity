@@ -1,4 +1,4 @@
-package com.battlecity.models;
+package com.battlecity.models.map;
 
 import java.io.Serializable;
 

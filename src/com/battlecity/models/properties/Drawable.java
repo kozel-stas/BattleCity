@@ -1,9 +1,11 @@
-package com.battlecity.models;
+package com.battlecity.models.properties;
 
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Canvas;
 
-public interface Drawable {
+import java.io.Serializable;
+
+public interface Drawable extends Serializable {
 
     long getId();
 

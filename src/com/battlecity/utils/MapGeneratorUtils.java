@@ -1,11 +1,11 @@
 package com.battlecity.utils;
 
-import com.battlecity.models.GameMap;
-import com.battlecity.models.GameProperties;
-import com.battlecity.models.PhysicalObject;
 import com.battlecity.models.blocks.Block;
 import com.battlecity.models.blocks.Fortress;
 import com.battlecity.models.blocks.NonDestroyableBlock;
+import com.battlecity.models.map.GameMap;
+import com.battlecity.models.properties.GameProperties;
+import com.battlecity.models.properties.Physical;
 
 import java.util.Random;
 
@@ -16,8 +16,8 @@ public class MapGeneratorUtils {
     public static GameMap generateMap(long clientID1, long clientID2) {
         Fortress[] fortresses = getAreaForFortresses(GameProperties.STANDART, clientID1, clientID2);
         GameMap gameMap = new GameMap(GameProperties.STANDART, fortresses[0], fortresses[1]);
-        PhysicalObject[] physicalObjects1 = generateWallAroundFortress(GameProperties.STANDART, fortresses[0]);
-        PhysicalObject[] physicalObjects2 = generateWallAroundFortress(GameProperties.STANDART, fortresses[1]);
+        Physical[] physicalObjects1 = generateWallAroundFortress(GameProperties.STANDART, fortresses[0]);
+        Physical[] physicalObjects2 = generateWallAroundFortress(GameProperties.STANDART, fortresses[1]);
         addPhysicalObjectsToGameMapIfItPossible(gameMap, physicalObjects1);
         addPhysicalObjectsToGameMapIfItPossible(gameMap, physicalObjects2);
         generateRandomDestroyableObjectsAndAddIfItPossible(GameProperties.STANDART, gameMap);
@@ -42,10 +42,10 @@ public class MapGeneratorUtils {
         }
     }
 
-    private static PhysicalObject[] generateWallAroundFortress(GameProperties gameProperties, Fortress fortress) {
-        PhysicalObject[] physicalObjects = new PhysicalObject[9];
-        int x = fortress.getCoordinateX() - gameProperties.getBlockArea().getWidth();
-        int y = fortress.getCoordinateY() - gameProperties.getBlockArea().getHeight();
+    private static Physical[] generateWallAroundFortress(GameProperties gameProperties, Fortress fortress) {
+        Physical[] physicalObjects = new Physical[9];
+        int x = fortress.getPhysicalObject().getCoordinateX() - gameProperties.getBlockArea().getWidth();
+        int y = fortress.getPhysicalObject().getCoordinateY() - gameProperties.getBlockArea().getHeight();
         int iter = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -59,8 +59,8 @@ public class MapGeneratorUtils {
         return physicalObjects;
     }
 
-    private static void addPhysicalObjectsToGameMapIfItPossible(GameMap gameMap, PhysicalObject[] physicalObjects) {
-        for (PhysicalObject physicalObject : physicalObjects) {
+    private static void addPhysicalObjectsToGameMapIfItPossible(GameMap gameMap, Physical[] physicalObjects) {
+        for (Physical physicalObject : physicalObjects) {
             gameMap.addPhysicalObjectToMap(physicalObject);
         }
     }
@@ -72,7 +72,7 @@ public class MapGeneratorUtils {
         for (int i = 0; i < max; i++) {
             int x = random.nextInt(maxRandX);
             int y = random.nextInt(maxRandY);
-            PhysicalObject physicalObject = new Block(
+            Physical physicalObject = new Block(
                     x * gameProperties.getBlockArea().getWidth(),
                     y * gameProperties.getBlockArea().getHeight(),
                     gameProperties);
@@ -89,7 +89,7 @@ public class MapGeneratorUtils {
         for (int i = 0; i < max; i++) {
             int x = random.nextInt(maxRandX);
             int y = random.nextInt(maxRandY);
-            PhysicalObject physicalObject = new NonDestroyableBlock(
+            Physical physicalObject = new NonDestroyableBlock(
                     x * gameProperties.getBlockArea().getWidth(),
                     y * gameProperties.getBlockArea().getHeight(),
                     gameProperties);

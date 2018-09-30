@@ -1,21 +1,28 @@
 package com.battlecity.models.blocks;
 
-import com.battlecity.models.Drawable;
-import com.battlecity.models.GameProperties;
-import com.battlecity.models.PhysicalObject;
+import com.battlecity.models.map.PhysicalObject;
+import com.battlecity.models.properties.Drawable;
+import com.battlecity.models.properties.GameProperties;
+import com.battlecity.models.properties.Physical;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 
-public class NonDestroyableBlock extends PhysicalObject implements Drawable {
+public class NonDestroyableBlock implements Drawable, Physical {
 
-    private GameProperties gameProperties;
+    private final GameProperties gameProperties;
+    private final PhysicalObject physicalObject;
 
     public NonDestroyableBlock(int coordinateX, int coordinateY, GameProperties gameProperties) {
-        super(coordinateX, coordinateY, gameProperties.getBlockArea().getHeight(), gameProperties.getBlockArea().getWidth());
+        this.physicalObject = new PhysicalObject(coordinateX, coordinateY, gameProperties.getBlockArea().getHeight(), gameProperties.getBlockArea().getWidth());
         this.gameProperties = gameProperties;
+    }
+
+    @Override
+    public long getId() {
+        return getPhysicalObject().getId();
     }
 
     @Override
@@ -27,27 +34,27 @@ public class NonDestroyableBlock extends PhysicalObject implements Drawable {
                 paintEvent.gc.setForeground(new Color(null, 255, 255, 255));
                 float proportionsY = rectangle.height / gameProperties.getMapArea().getHeight();
                 float proportionsX = rectangle.width / gameProperties.getMapArea().getWidth();
-                paintEvent.gc.drawRectangle((int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight()));
+                paintEvent.gc.drawRectangle((int) (proportionsX * getPhysicalObject().getCoordinateX()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY()),
+                        (int) (proportionsX * getPhysicalObject().getArea().getWidth()),
+                        (int) (proportionsY * getPhysicalObject().getArea().getHeight()));
                 paintEvent.gc.drawLine(
-                        (int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getCoordinateX1()),
-                        (int) (proportionsY * getCoordinateY1())
+                        (int) (proportionsX * getPhysicalObject().getCoordinateX()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY()),
+                        (int) (proportionsX * getPhysicalObject().getCoordinateX1()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY1())
                 );
                 paintEvent.gc.drawLine(
-                        (int) (proportionsX * getCoordinateX1()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY1())
+                        (int) (proportionsX * getPhysicalObject().getCoordinateX1()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY()),
+                        (int) (proportionsX * getPhysicalObject().getCoordinateX()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY1())
                 );
                 paintEvent.gc.drawOval(
-                        (int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight())
+                        (int) (proportionsX * getPhysicalObject().getCoordinateX()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY()),
+                        (int) (proportionsX * getPhysicalObject().getArea().getWidth()),
+                        (int) (proportionsY * getPhysicalObject().getArea().getHeight())
                 );
             }
         };
@@ -60,4 +67,8 @@ public class NonDestroyableBlock extends PhysicalObject implements Drawable {
         //can't update / not movable
     }
 
+    @Override
+    public PhysicalObject getPhysicalObject() {
+        return physicalObject;
+    }
 }

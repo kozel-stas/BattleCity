@@ -1,6 +1,9 @@
 package com.battlecity.models.blocks;
 
-import com.battlecity.models.*;
+import com.battlecity.models.map.Area;
+import com.battlecity.models.map.Disposition;
+import com.battlecity.models.map.PhysicalObject;
+import com.battlecity.models.properties.*;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
@@ -11,19 +14,20 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Tank extends PhysicalObject implements Movable, Destroyable, Drawable {
+public class Tank implements Movable, Destroyable, Drawable, Physical {
 
     private final AtomicInteger lives;
+    private final PhysicalObject physicalObject;
     private Disposition disposition;
     private transient final int speed;
     private transient final int step;
-    private GameProperties gameProperties;
+    private final GameProperties gameProperties;
     private transient Future<?> moveTask;
     private transient long lastShootTime;
     private transient long reloadTime;
 
     public Tank(int coordinateX, int coordinateY, GameProperties gameProperties) {
-        super(coordinateX, coordinateY, gameProperties.getTankArea().getHeight(), gameProperties.getTankArea().getWidth());
+        this.physicalObject = new PhysicalObject(coordinateX, coordinateY, gameProperties.getTankArea().getHeight(), gameProperties.getTankArea().getWidth());
         this.gameProperties = gameProperties;
         lives = new AtomicInteger(gameProperties.getTankLives());
         disposition = Disposition.TOP; // default value
@@ -38,11 +42,16 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
     }
 
     @Override
+    public long getId() {
+        return getPhysicalObject().getId();
+    }
+
+    @Override
     public void move(Disposition disposition) {
         if (this.disposition == disposition) {
             Area area = getAreaAfterMove(disposition);
-            setCoordinateX(area.getCoordinateX());
-            setCoordinateY(area.getCoordinateY());
+            getPhysicalObject().setCoordinateX(area.getCoordinateX());
+            getPhysicalObject().setCoordinateY(area.getCoordinateY());
         } else {
             this.disposition = disposition;
         }
@@ -51,16 +60,16 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
     @Override
     public Area getAreaAfterMove(Disposition disposition) {
         if (this.disposition != disposition) {
-            return getArea();
+            return getPhysicalObject().getArea();
         }
-        return this.disposition.getAreaAfterOffset(getArea(), step);
+        return this.disposition.getAreaAfterOffset(getPhysicalObject().getArea(), step);
     }
 
     @Nullable
     public Bullet doShoot() {
         if (lastShootTime + reloadTime < System.currentTimeMillis()) {
             lastShootTime = System.currentTimeMillis();
-            Area area = this.disposition.getAreaForBullet(getArea(), gameProperties);
+            Area area = this.disposition.getAreaForBullet(getPhysicalObject().getArea(), gameProperties);
             return new Bullet(area.getCoordinateX(), area.getCoordinateY(), gameProperties, this.disposition, this);
         }
         return null;
@@ -80,10 +89,10 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
                 float proportionsY = rectangle.height / gameProperties.getMapArea().getHeight();
                 float proportionsX = rectangle.width / gameProperties.getMapArea().getWidth();
                 paintEvent.gc.drawRectangle(
-                        (int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight())
+                        (int) (proportionsX * getPhysicalObject().getCoordinateX()),
+                        (int) (proportionsY * getPhysicalObject().getCoordinateY()),
+                        (int) (proportionsX * getPhysicalObject().getArea().getWidth()),
+                        (int) (proportionsY * getPhysicalObject().getArea().getHeight())
                 );
             }
         };
@@ -95,8 +104,8 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
     public void updateDataForDrawing(Drawable drawable) {
         Tank tank = (Tank) drawable;
         this.disposition = tank.disposition;
-        setCoordinateX(tank.getCoordinateX());
-        setCoordinateY(tank.getCoordinateY());
+        getPhysicalObject().setCoordinateX(tank.getPhysicalObject().getCoordinateX());
+        getPhysicalObject().setCoordinateY(tank.getPhysicalObject().getCoordinateY());
     }
 
     public void cancelMoveTask(boolean interrupt) {
@@ -111,6 +120,11 @@ public class Tank extends PhysicalObject implements Movable, Destroyable, Drawab
 
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public PhysicalObject getPhysicalObject() {
+        return physicalObject;
     }
 
 }

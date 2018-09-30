@@ -1,4 +1,6 @@
-package com.battlecity.models;
+package com.battlecity.models.properties;
+
+import com.battlecity.models.map.Area;
 
 public interface Iterable {
 

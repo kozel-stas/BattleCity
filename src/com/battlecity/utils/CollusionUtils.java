@@ -1,8 +1,8 @@
 package com.battlecity.utils;
 
-import com.battlecity.models.Area;
-import com.battlecity.models.GameMap;
-import com.battlecity.models.PhysicalObject;
+import com.battlecity.models.map.Area;
+import com.battlecity.models.map.GameMap;
+import com.battlecity.models.map.PhysicalObject;
 
 /**
  * Utility class for checking collusion on map.

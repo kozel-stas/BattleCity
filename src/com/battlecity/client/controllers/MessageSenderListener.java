@@ -28,7 +28,7 @@ public class MessageSenderListener implements Runnable {
         if (isReady()) {
             return;
         }
-        socket = new Socket("battlecity.com", PORT);
+        socket = new Socket("206.189.97.184", PORT);
 
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());

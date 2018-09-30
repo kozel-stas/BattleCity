@@ -1,5 +1,6 @@
-package com.battlecity.models;
+package com.battlecity.models.map;
 
+import com.battlecity.models.properties.GameProperties;
 import org.jetbrains.annotations.NotNull;
 
 public enum Disposition {

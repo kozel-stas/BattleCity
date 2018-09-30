@@ -1,4 +1,4 @@
-package com.battlecity.models;
+package com.battlecity.models.map;
 
 import com.battlecity.utils.IDGeneratorUtils;
 
@@ -31,7 +31,7 @@ public class PhysicalObject implements Serializable {
         return area.getCoordinateY();
     }
 
-    protected void setCoordinateY(int coordinateY) {
+    public void setCoordinateY(int coordinateY) {
         this.area.setCoordinateY(coordinateY);
     }
 
@@ -39,11 +39,11 @@ public class PhysicalObject implements Serializable {
         return area.getCoordinateX();
     }
 
-    protected void setCoordinateX(int coordinateX) {
+    public void setCoordinateX(int coordinateX) {
         this.area.setCoordinateX(coordinateX);
     }
 
-    protected Area getArea(){
+    public Area getArea() {
         return area;
     }
 

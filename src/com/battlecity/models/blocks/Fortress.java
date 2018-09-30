@@ -1,24 +1,31 @@
 package com.battlecity.models.blocks;
 
-import com.battlecity.models.Destroyable;
-import com.battlecity.models.Drawable;
-import com.battlecity.models.GameProperties;
-import com.battlecity.models.PhysicalObject;
+import com.battlecity.models.map.PhysicalObject;
+import com.battlecity.models.properties.Destroyable;
+import com.battlecity.models.properties.Drawable;
+import com.battlecity.models.properties.GameProperties;
+import com.battlecity.models.properties.Physical;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 
-public class Fortress extends PhysicalObject implements Destroyable, Drawable {
+public class Fortress implements Destroyable, Drawable, Physical {
 
     private final GameProperties gameProperties;
+    private final PhysicalObject physicalObject;
     private transient final long owner;
 
     public Fortress(int coordinateX, int coordinateY, GameProperties gameProperties, long clientID) {
-        super(coordinateX, coordinateY, gameProperties.getBlockArea().getHeight(), gameProperties.getBlockArea().getWidth());
+        this.physicalObject = new PhysicalObject(coordinateX, coordinateY, gameProperties.getBlockArea().getHeight(), gameProperties.getBlockArea().getWidth());
         this.gameProperties = gameProperties;
         this.owner = clientID;
+    }
+
+    @Override
+    public long getId() {
+        return getPhysicalObject().getId();
     }
 
     @Override
@@ -36,16 +43,16 @@ public class Fortress extends PhysicalObject implements Destroyable, Drawable {
                 float proportionsY = rectangle.height / gameProperties.getMapArea().getHeight();
                 float proportionsX = rectangle.width / gameProperties.getMapArea().getWidth();
                 paintEvent.gc.drawRectangle(
-                        (int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight())
+                        (int) (proportionsX * physicalObject.getCoordinateX()),
+                        (int) (proportionsY * physicalObject.getCoordinateY()),
+                        (int) (proportionsX * physicalObject.getArea().getWidth()),
+                        (int) (proportionsY * physicalObject.getArea().getHeight())
                 );
                 paintEvent.gc.drawOval(
-                        (int) (proportionsX * getCoordinateX()),
-                        (int) (proportionsY * getCoordinateY()),
-                        (int) (proportionsX * getArea().getWidth()),
-                        (int) (proportionsY * getArea().getHeight())
+                        (int) (proportionsX * physicalObject.getCoordinateX()),
+                        (int) (proportionsY * physicalObject.getCoordinateY()),
+                        (int) (proportionsX * physicalObject.getArea().getWidth()),
+                        (int) (proportionsY * physicalObject.getArea().getHeight())
                 );
             }
         };
@@ -63,4 +70,8 @@ public class Fortress extends PhysicalObject implements Destroyable, Drawable {
         return owner;
     }
 
+    @Override
+    public PhysicalObject getPhysicalObject() {
+        return physicalObject;
+    }
 }

@@ -1,12 +1,13 @@
-package com.battlecity.models;
+package com.battlecity.models.map;
 
 import com.battlecity.models.blocks.Fortress;
 import com.battlecity.models.blocks.Tank;
+import com.battlecity.models.properties.*;
+import com.battlecity.models.properties.Iterable;
 import com.battlecity.utils.CollusionUtils;
 import com.battlecity.utils.SpawnUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
@@ -33,9 +34,9 @@ public class GameMap {
 
     private final GameProperties gameProperties;
 
-    private final ConcurrentSkipListMap<Long, PhysicalObject> physicalObjects = new ConcurrentSkipListMap<>();
+    private final ConcurrentSkipListMap<Long, Physical> physicalObjects = new ConcurrentSkipListMap<>();
     private final ConcurrentSkipListMap<Long, Movable> movableObjects = new ConcurrentSkipListMap<>();
-    private final ConcurrentSkipListMap<Long, Iterable> iterableObjects = new ConcurrentSkipListMap<>();
+    private final ConcurrentSkipListMap<Long, com.battlecity.models.properties.Iterable> iterableObjects = new ConcurrentSkipListMap<>();
     private final ConcurrentSkipListMap<Long, Destroyable> destroyableObjects = new ConcurrentSkipListMap<>();
     private final ConcurrentSkipListMap<Long, Drawable> drawableObjects = new ConcurrentSkipListMap<>();
     // clientId -> Tank
@@ -51,24 +52,25 @@ public class GameMap {
         addPhysicalObjectToMap(fortress2);
     }
 
-    public boolean addPhysicalObjectToMap(PhysicalObject physicalObject) {
-        if (getPhysicalObject(physicalObject.getId()) == null && getPhysicalObject(physicalObject) == null && !CollusionUtils.checkCollusion(this, physicalObject.getArea())) {
-            physicalObjects.put(physicalObject.getId(), physicalObject);
-            generifyPhysicalObjects(physicalObject);
+    public boolean addPhysicalObjectToMap(Physical physical) {
+        if (getPhysicalObject(physical.getId()) == null && getPhysicalObject(physical) == null &&
+                !CollusionUtils.checkCollusion(this, physical.getPhysicalObject().getArea())) {
+            physicalObjects.put(physical.getId(), physical);
+            generifyPhysical(physical);
             return true;
         }
         return false;
     }
 
     @Nullable
-    public PhysicalObject getPhysicalObject(Long id) {
+    public Physical getPhysicalObject(Long id) {
         return physicalObjects.get(id);
     }
 
     @Nullable
-    public PhysicalObject getPhysicalObject(Area area) {
-        for (PhysicalObject physicalObject : physicalObjects.values()) {
-            if (CollusionUtils.checkCollusion(physicalObject, area)) {
+    public Physical getPhysicalObject(Area area) {
+        for (Physical physicalObject : physicalObjects.values()) {
+            if (CollusionUtils.checkCollusion(physicalObject.getPhysicalObject(), area)) {
                 return physicalObject;
             }
         }
@@ -76,9 +78,9 @@ public class GameMap {
     }
 
     @Nullable
-    public PhysicalObject getPhysicalObject(Area area, long id) {
-        for (PhysicalObject physicalObject : physicalObjects.values()) {
-            if (CollusionUtils.checkCollusion(physicalObject, area) && physicalObject.getId() != id) {
+    public Physical getPhysicalObject(Area area, long id) {
+        for (Physical physicalObject : physicalObjects.values()) {
+            if (CollusionUtils.checkCollusion(physicalObject.getPhysicalObject(), area) && physicalObject.getId() != id) {
                 return physicalObject;
             }
         }
@@ -86,9 +88,9 @@ public class GameMap {
     }
 
     @Nullable
-    public PhysicalObject getPhysicalObject(PhysicalObject physicalObject) {
-        for (PhysicalObject currPhysicalObject : physicalObjects.values()) {
-            if (CollusionUtils.checkCollusion(currPhysicalObject, physicalObject)) {
+    public Physical getPhysicalObject(Physical physical) {
+        for (Physical currPhysicalObject : physicalObjects.values()) {
+            if (CollusionUtils.checkCollusion(currPhysicalObject.getPhysicalObject(), physical.getPhysicalObject())) {
                 return currPhysicalObject;
             }
         }
@@ -96,35 +98,35 @@ public class GameMap {
     }
 
     @Nullable
-    public PhysicalObject removePhysicalObject(Long id) {
-        PhysicalObject physicalObject = physicalObjects.remove(id);
-        if (physicalObject != null) {
-            movableObjects.remove(physicalObject.getId());
-            destroyableObjects.remove(physicalObject.getId());
-            iterableObjects.remove(physicalObject.getId());
-            drawableObjects.remove(physicalObject.getId());
-            return physicalObject;
+    public Physical removePhysical(Long id) {
+        Physical physical = physicalObjects.remove(id);
+        if (physical != null) {
+            movableObjects.remove(physical.getId());
+            destroyableObjects.remove(physical.getId());
+            iterableObjects.remove(physical.getId());
+            drawableObjects.remove(physical.getId());
+            return physical;
         }
         return null;
     }
 
     @Nullable
-    public PhysicalObject removePhysicalObject(PhysicalObject physicalObject) {
-        return removePhysicalObject(physicalObject.getId());
+    public Physical removePhysical(Physical physical) {
+        return removePhysical(physical.getId());
     }
 
-    private void generifyPhysicalObjects(PhysicalObject physicalObject) {
-        if (physicalObject instanceof Movable) {
-            movableObjects.put(physicalObject.getId(), (Movable) physicalObject);
+    private void generifyPhysical(Physical physical) {
+        if (physical instanceof Movable) {
+            movableObjects.put(physical.getId(), (Movable) physical);
         }
-        if (physicalObject instanceof Destroyable) {
-            destroyableObjects.put(physicalObject.getId(), (Destroyable) physicalObject);
+        if (physical instanceof Destroyable) {
+            destroyableObjects.put(physical.getId(), (Destroyable) physical);
         }
-        if (physicalObject instanceof Iterable) {
-            iterableObjects.put(physicalObject.getId(), (Iterable) physicalObject);
+        if (physical instanceof com.battlecity.models.properties.Iterable) {
+            iterableObjects.put(physical.getId(), (com.battlecity.models.properties.Iterable) physical);
         }
-        if (physicalObject instanceof Drawable) {
-            drawableObjects.put(physicalObject.getId(), (Drawable) physicalObject);
+        if (physical instanceof Drawable) {
+            drawableObjects.put(physical.getId(), (Drawable) physical);
         }
     }
 
@@ -132,7 +134,7 @@ public class GameMap {
         return iterableObjects;
     }
 
-    public ConcurrentSkipListMap<Long, PhysicalObject> getPhysicalObjects() {
+    public ConcurrentSkipListMap<Long, Physical> getPhysicalObjects() {
         return physicalObjects;
     }
 
